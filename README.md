@@ -40,7 +40,7 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 3. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
 
-3. 
+4. Run the following command to build the Docker container on your computer: `docker build - < Dockerfile-MutantHunter`
 
 
 
