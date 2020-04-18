@@ -41,13 +41,13 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 3. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
 
-4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build - < Dockerfile-MutantHunter` If you are promted for a password (by sudo) just type in your computer password.
+4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build -t mutant_hunter - < Dockerfile-MutantHunter` If you are promted for a password (by sudo) just type in your computer password.
 
-5. Run this command to get info on the container you just built: `docker ps -a`
+5. Run this command to get info on the container you just built: `docker image ls`
 
-![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image3.png "You should see something like this")
+6. Run this command to run the container `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory:/MutantHunter/Analysis_Directory mutant_hunter` 
 
-6. Run the following command to run the container: `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory.tmp:/MutantHunter/Analysis_Directorys IMAGE` but replace IMAGE with the image number. In the example above the IMAGE == b51a30ebf810 so the command would be `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory.tmp:/MutantHunter/Analysis_Directory b51a30ebf810`
+More infromation about how to work with Docker Containers can be found here: https://docs.docker.com
 
 
 ## Running Mutant Hunter
