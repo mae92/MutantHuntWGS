@@ -27,11 +27,9 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 5. Create folders in `/Analysis_Directory/My_Analysis` to place your data into.
 
-    1. Wild-type FASTQ file `/WT_FASTQ` (full path: `/Analysis_Directory/My_Analysis/WT_FASTQ`)
+    1. FASTQ file directory `/FASTQ` and place all FASTQ files into it (full path: `/Analysis_Directory/My_Analysis/FASTQ`)
     
-    2. Mutant(s) FASTQ files `Mutant_FASTQ` (full path: `/Analysis_Directory/My_Analysis/Mutant_FASTQ`)
-    
-    3. Ensure that FASTQ files adhere to the following naming convention
+    2. Ensure that FASTQ files adhere to the following naming convention
     
         1. Single end sequencing FASTQ file should be named: FILENAME.fastq
         
