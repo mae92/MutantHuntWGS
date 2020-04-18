@@ -32,7 +32,7 @@ A bioinformatics pipeline for identification and characterization of mutations i
     2. Mutant(s) FASTQ files `Mutant_FASTQ` (full path: `/Analysis_Directory/My_Analysis/Mutant_FASTQ`)
 
 
-## Installing Docker, Building the Container and Run the Container
+## Installing Docker, Building and Running the Container
 
 
 1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer
@@ -41,7 +41,7 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 3. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
 
-4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `sudo docker build -t mutanthunter .` If you are promted for a password (by sudo) just type in your computer password.
+4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build - < Dockerfile-MutantHunter` If you are promted for a password (by sudo) just type in your computer password.
 
 5. Run this command to get info on the container you just built: `docker ps -a`
 
