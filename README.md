@@ -47,7 +47,7 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image3.png "You should see something like this")
 
-6. Run the following command to run the container: `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory.tmp/My_Analysis:/MutantHunter/My_Analysis IMAGE` but replace IMAGE with the image number. In the example above the IMAGE == b51a30ebf810 so the command would be `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory.tmp/My_Analysis:/MutantHunter/My_Analysis b51a30ebf810`
+6. Run the following command to run the container: `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory.tmp:/MutantHunter/Analysis_Directorys IMAGE` but replace IMAGE with the image number. In the example above the IMAGE == b51a30ebf810 so the command would be `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory.tmp:/MutantHunter/Analysis_Directory b51a30ebf810`
 
 
 ## Running Mutant Hunter
