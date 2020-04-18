@@ -20,7 +20,7 @@ Bioinformatics pipeline for identification and characterization of mutations in 
             
             ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image2.png)
             
-3. Place the `/MutantHunter-master` folder into `/AnalysisDirectory`
+3. Place the `/MutantHunter-master` folder into `/AnalysisDirectory` (full path: `/Analysis_Directory/MutantHunter-master`)
 
 4. Create a folder in `/Analysis_Directory` named descriptively for you specific analysis. For these instructions I am going to refer this directory as `/My_Analysis` the full path to which would be `/Analysis_Directory/My_Analysis`
 
