@@ -44,7 +44,7 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 5. Run this command to get info on the container you just built: `docker ps -a`
 
-![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image2.png "You should see something like this:")
+![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image3.png "You should see something like this:")
 
 
 
