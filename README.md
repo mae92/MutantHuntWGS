@@ -42,7 +42,10 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `sudo docker build -t mutanthunter .`
 
-5. 
+5. Run this command to get info on the container you just built: `docker ps -a`
+
+![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image2.png "You should see something like this:")
+
 
 
 
