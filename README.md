@@ -4,9 +4,11 @@ Bioinformatics pipeline for identification and characterization of mutations in 
 
 ## Setting up Directories for your Analysis and Organizing your Input Files
 
-1. Download and unzip MutantHunter code from this website
+1. Place this folder in a directory of your choice. For these instructions I am going to refer this directory as `/AnalysisDirectory`
 
-    1. You can run `wget `
+2. Download and unzip MutantHunter code from this website
+
+    1. Run the following command in the terminal `wget https://github.com/mae92/MutantHunter/archive/master.zip` 
     
     2. Alternatively you can download from the website by performing the following steps
     
@@ -18,7 +20,18 @@ Bioinformatics pipeline for identification and characterization of mutations in 
             
             ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image2.png)
             
-2. Which is numbered
+3. Place the `/MutantHunter-master` folder into `/AnalysisDirectory`
+
+4. Create a folder in `/Analysis_Directory` named descriptively for you specific analysis. For these instructions I am going to refer this directory as `/My_Analysis` the full path to which would be `/Analysis_Directory/My_Analysis`
+
+5. Create folders in `/Analysis_Directory/My_Analysis` to place your data into.
+
+    1. Wild-type FASTQ file `/WT_FASTQ` (full path: `/Analysis_Directory/My_Analysis/WT_FASTQ`)
+    
+    2. Mutant(s) FASTQ files `Mutant_FASTQ` (full path: `/Analysis_Directory/My_Analysis/Mutant_FASTQ`)
+
+5. 
+
 
 
 ## Installing Docker
