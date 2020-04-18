@@ -30,6 +30,14 @@ A bioinformatics pipeline for identification and characterization of mutations i
     1. Wild-type FASTQ file `/WT_FASTQ` (full path: `/Analysis_Directory/My_Analysis/WT_FASTQ`)
     
     2. Mutant(s) FASTQ files `Mutant_FASTQ` (full path: `/Analysis_Directory/My_Analysis/Mutant_FASTQ`)
+    
+    3. Ensure that FASTQ files adhere to the following naming convention
+    
+        1. Single end sequencing FASTQ file should be named: FILENAME.fastq
+        
+        2. Paried end sequencing FASTQ files should be named: FILENAME_R1.fastq and FILENAME_R2.fastq
+        
+        3. I suggest making copies of your FASTQ files rather then renaming the originals in case a mistake is made during the renaming process
 
 
 ## Installing Docker, Building and Running the Container
