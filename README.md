@@ -7,7 +7,9 @@ Bioinformatics pipeline for identification and characterization of mutations in 
 1. Download and unzip MutantHunter code from this website
     1. You can run `wget `
     2. Alternatively you can download from the website by performing the following steps
-        1. ![picture alt](http://via.placeholder.com/200x150 "Title is optional")
+        1. On this GitHub page click on the green button labeled 
+            ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image1.png "Title is optional")
+        2. ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image2.png "Title is optional")
 2. Which is numbered
 
 
