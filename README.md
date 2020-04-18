@@ -1,5 +1,6 @@
 # MutantHunter
-Bioinformatics pipeline for identification and characterization of mutations in Saccharomyces cerevisiae given a wild-type strain and one or more mutant strains.
+
+A bioinformatics pipeline for identification and characterization of mutations in Saccharomyces cerevisiae from FASTQ files from a wild-type strain and one or more mutant strains.
 
 
 ## Setting up Directories for your Analysis and Organizing your Input Files
@@ -16,7 +17,7 @@ Bioinformatics pipeline for identification and characterization of mutations in 
         
             ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image1.png)
             
-            2. Click on the "Download ZIP" button in the dropdown menu
+        2. Click on the "Download ZIP" button in the dropdown menu
             
             ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image2.png)
             
@@ -30,11 +31,20 @@ Bioinformatics pipeline for identification and characterization of mutations in 
     
     2. Mutant(s) FASTQ files `Mutant_FASTQ` (full path: `/Analysis_Directory/My_Analysis/Mutant_FASTQ`)
 
-5. 
-
-
 
 ## Installing Docker
+
+1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer
+
+2. Open the terminal
+
+3. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
+
+3. 
+
+
+
+
 
 
 
