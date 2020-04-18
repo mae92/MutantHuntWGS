@@ -17,12 +17,12 @@ RUN apt-get -qq update && \
 # Install bowtie2 (currently master, might want to grab 2.2.9)
 
 RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.9/bowtie2-2.2.9-linux-x86_64.zip/download && \
-    unzip ./master.zip && \
-    cd ./bowtie2-master && \
+    unzip ./download && \
+    cd ./bowtie2-2.2.9 && \
     make && \
     cd ../
 
-RUN echo 'export PATH="/MutantHunter/bowtie2-master:$PATH"' >> ~/.bashrc
+RUN echo 'export PATH="/MutantHunter/bowtie2-2.2.9:$PATH"' >> ~/.bashrc
 
 
 
