@@ -9,7 +9,7 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 2. Download and unzip MutantHunter code from this website
 
-    1. Run the following command in the terminal `wget https://github.com/mae92/MutantHunter/archive/master.zip` 
+    1. Run the following command in the terminal `wget https://github.com/mae92/MutantHunter/archive/master.zip` (by copying and pasting it into the terminal window and pressing enter) 
     
     2. Alternatively you can download from the website by performing the following steps
     
@@ -40,7 +40,9 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 3. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
 
-4. Run the following command to build the Docker container on your computer: `docker build - < Dockerfile-MutantHunter`
+4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `sudo docker build -t mutanthunter .`
+
+5. 
 
 
 
