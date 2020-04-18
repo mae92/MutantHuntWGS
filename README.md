@@ -32,7 +32,8 @@ A bioinformatics pipeline for identification and characterization of mutations i
     2. Mutant(s) FASTQ files `Mutant_FASTQ` (full path: `/Analysis_Directory/My_Analysis/Mutant_FASTQ`)
 
 
-## Installing Docker
+## Installing Docker, Building the Container and Run the Container
+
 
 1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer
 
@@ -40,20 +41,13 @@ A bioinformatics pipeline for identification and characterization of mutations i
 
 3. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
 
-4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `sudo docker build -t mutanthunter .`
+4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `sudo docker build -t mutanthunter .` If you are promted for a password (by sudo) just type in your computer password.
 
 5. Run this command to get info on the container you just built: `docker ps -a`
 
-![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image3.png "You should see something like this:")
+![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image3.png "You should see something like this")
 
-
-
-
-
-
-
-
-## Building the Docker Container
+6. Run the following command to run the container: `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory.tmp/My_Analysis:/MutantHunter/My_Analysis IMAGE` but replace IMAGE with the image number. In the example above the IMAGE == b51a30ebf810 so the command would be `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory.tmp/My_Analysis:/MutantHunter/My_Analysis b51a30ebf810`
 
 
 ## Running Mutant Hunter
