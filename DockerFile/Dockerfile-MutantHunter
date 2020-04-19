@@ -1,4 +1,5 @@
 # Dockerfile for MutantHunter pipeline
+# Coded by Jen Walker and edited by Mitch Ellison
 
 FROM ubuntu:latest
 
@@ -9,6 +10,7 @@ WORKDIR /MutantHunter
 # We need to get the basic bash commands we need
 
 RUN apt-get -qq update && \
+    apt-get -qq -y install apt-utils && \
     apt-get -qq -y install wget unzip bzip2 gcc libncurses5-dev zlib1g-dev make python g++ \
     	    	   	   libtbb-dev pkg-config default-jre
 
@@ -74,18 +76,12 @@ RUN /MutantHunter/snpEff/scripts/snpEff ann -v Saccharomyces_cerevisiae
 
 # Install SIFT4G annotator
 
-RUN wget https://github.com/pauline-ng/SIFT4G_Annotator/raw/master/SIFT4G_Annotator.jar \
-	wget https://sift.bii.a-star.edu.sg/sift4g/public/Saccharomyces_cerevisiae/EF4.74.zip \
+RUN wget https://github.com/pauline-ng/SIFT4G_Annotator/raw/master/SIFT4G_Annotator.jar
+
+RUN wget https://sift.bii.a-star.edu.sg/sift4g/public/Saccharomyces_cerevisiae/EF4.74.zip && \
 	unzip ./EF4.74.zip 
 
 RUN echo 'export PATH="/MutantHunter/SIFT4G_Annotator.jar:$PATH"' >> ~/.bashrc
-
-
-
-# Install Zenity
-
-RUN sudo apt-get update -y \
-	sudo apt-get install -y zenity
 
 
 
