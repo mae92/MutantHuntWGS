@@ -60,7 +60,7 @@ More infromation about how to work with Docker Containers can be found here: htt
 
 ## Running Mutant Hunter
 
-1. From within the Docker conatiner navigate to the directory containing the MutantHunter software by running the following command `cd /Users/mitchellellison/Desktop/Analysis_Directory/MutantHunter-master/MutantHunter_Code`
+1. From within the Docker conatiner navigate to the directory containing the MutantHunter software by running the following command `cd /MutantHunter/Analysis_Directory/MutantHunter-master/MutantHunter_Code`
 
 2. Use the following command to make sure MutantHunter.sh is executable `chmod 777 MutantHunter.sh`
 
