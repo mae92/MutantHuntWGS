@@ -38,24 +38,46 @@ A bioinformatics pipeline for identification and characterization of mutations i
         3. I suggest making copies of your FASTQ files rather then renaming the originals in case a mistake is made during the renaming process
 
 
-## Installing Docker, Building and Running the Container
+## Installing Docker
 
-
-1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer
-
-2. Open the terminal
-
-3. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
-
-4. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build -t mutant_hunter - < Dockerfile-MutantHunter` If you are promted for a password (by sudo) just type in your computer password.
-
-5. Run this command to get info on the container you just built: `docker image ls`
-
-6. Run this command to run the container `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory:/MutantHunter/Analysis_Directory mutant_hunter` 
+Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer
 
 More infromation about how to work with Docker Containers can be found here: https://docs.docker.com
 
 
+## Building and Running the Container
+
+1. Open the terminal
+
+2. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
+
+3. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build -t mutant_hunter - < Dockerfile-MutantHunter` If you are promted for a password (by sudo) just type in your computer password.
+
+4. Run this command to get info on the container you just built: `docker image ls`
+
+5. Run this command to run the container `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory:/MutantHunter/Analysis_Directory mutant_hunter` 
+
+
 ## Running Mutant Hunter
+
+1. From within the Docker conatiner navigate to the directory containing the MutantHunter software by running the following command `cd /Users/mitchellellison/Desktop/Analysis_Directory/MutantHunter-master/MutantHunter_Code`
+
+2. Use the following command to make sure MutantHunter.sh is executable `chmod 777 MutantHunter.sh`
+
+3. Run MutantHunter by running the code below.
+
+        `./MutantHunter.sh \
+            -n WT_one_million \
+            -g /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
+            -f /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
+            -r single \
+            -s 10 \
+            -p /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
+            -d /MutantHunter/Analysis_Directory/My_Analysis \
+            -o /MutantHunter/Analysis_Directory/MutantHunter_Output_for_SUP22_vs_WT_one_million_reads_each`
+
+
+
+
 
 
