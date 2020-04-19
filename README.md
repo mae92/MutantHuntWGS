@@ -66,7 +66,8 @@ More infromation about how to work with Docker Containers can be found here: htt
 
 3. Run MutantHunter by running the code below.
 
-`./MutantHunter.sh \
+```
+./MutantHunter.sh \
     -n WT_one_million \
     -g /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
     -f /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
@@ -74,7 +75,8 @@ More infromation about how to work with Docker Containers can be found here: htt
     -s 10 \
     -p /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
     -d /MutantHunter/Analysis_Directory/My_Analysis \
-    -o /MutantHunter/Analysis_Directory/MutantHunter_Output_for_SUP22_vs_WT_one_million_reads_each`
+    -o /MutantHunter/Analysis_Directory/MutantHunter_Output_for_SUP22_vs_WT_one_million_reads_each
+```
 
 
 
