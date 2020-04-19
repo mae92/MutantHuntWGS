@@ -68,18 +68,25 @@ More infromation about how to work with Docker Containers can be found here: htt
 
 ```
 ./MutantHunter.sh \
-    -n WT_one_million \
+    -n PREFIX_FOR_YOUR_WT_FILE \
     -g /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
     -f /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
     -r single \
     -s 10 \
     -p /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
     -d /MutantHunter/Analysis_Directory/My_Analysis \
-    -o /MutantHunter/Analysis_Directory/MutantHunter_Output_for_SUP22_vs_WT_one_million_reads_each
+    -o /MutantHunter/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER
 ```
 
+### Because the files and directory structure were set up ahead of time and all run out of the Docker container the file paths in the above commands will all stay the same but some of the options may change depending upon your needs. All options are explained in detail below.
 
-
-
+    -n
+    -g
+    -f
+    -r
+    -s
+    -p
+    -d
+    -o
 
 
