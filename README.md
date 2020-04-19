@@ -80,13 +80,31 @@ More infromation about how to work with Docker Containers can be found here: htt
 
 ### Because the files and directory structure were set up ahead of time and all run out of the Docker container the file paths in the above commands will all stay the same but some of the options may change depending upon your needs. All options are explained in detail below.
 
-    -n
-    -g
-    -f
-    -r
-    -s
-    -p
-    -d
-    -o
+#### -n
+
+
+#### -g
+
+
+#### -f
+
+
+#### -r
+
+
+#### -s
+
+
+#### -p
+
+
+#### -d
+
+
+#### -o
+
+
+
+
 
 
