@@ -1,4 +1,4 @@
-# MutantHunter
+# MutantHuntWGS
 
 
 ## A bioinformatics pipeline for identification and characterization of mutations in *Saccharomyces cerevisiae* from FASTQ files from a wild-type strain and one or more mutant strains.
@@ -20,26 +20,26 @@
         
         4. For this naming example "FILENAME" will be used as the input for the -n option below.
 
-3. Open the Terminal and download and run the Docker container for MutantHunter by copying and pasting the following command into the terminal: `docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/MutantHunter/Analysis_Directory mellison/mutant_hunter:version1`
+3. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal: `docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/Main/Analysis_Directory mellison/mutant_hunter_wgs:version1`
 
-4. Run MutantHunter by running the code below.
+4. Run MutantHuntWGS by running the code below.
 ```
-./MutantHunter.sh \
+./MutantHuntWGS.sh \
     -n FILENAME \
-    -g /MutantHunter/MutantHunter/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
-    -f /MutantHunter/MutantHunter/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
+    -g /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
+    -f /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
     -r single \
     -s 10 \
-    -p /MutantHunter/MutantHunter/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
-    -d /MutantHunter/Analysis_Directory \
-    -o /MutantHunter/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER
+    -p /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
+    -d /Main/Analysis_Directory \
+    -o /Main/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER
 ```
 
 ## Because the files and directory structure were set up ahead of time (on the Desktop and during the docker build), and all run out of the Docker container, the file paths in the above commands will all stay the same, but some of the options may change depending upon your needs. 
 
 
 
-# MutantHunter Options
+# MutantHuntWGS Options
 
 ## All options are required
 
@@ -104,7 +104,7 @@ chrI	1	230218	M	1
 chrII	1	813184	M	2
 chrIII	1	316620	M	1
 ```
-A sex of M or male was arbitrarily chosen and the MutantHunter program is expecting that so it cannot be changed without editing MutantHunter.sh.
+A sex of M or male was arbitrarily chosen and the MutantHuntWGS program is expecting that so it cannot be changed without editing MutantHuntWGS.sh.
 
 ### -d
 
@@ -112,7 +112,7 @@ Current working directory containing the FASTQ folder. If you set things up in t
 
 ### -o
 
-This allows you to specify a folder for your data to output to. This should be structured like the example `/MutantHunter/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER` except you will come up with a descriptive name to replace the `NAME_YOUR_OUTPUT_FOLDER` part of the file PATH.
+This allows you to specify a folder for your data to output to. This should be structured like the example `/Main/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER` except you will come up with a descriptive name to replace the `NAME_YOUR_OUTPUT_FOLDER` part of the file PATH.
 
 
 
@@ -123,21 +123,21 @@ This allows you to specify a folder for your data to output to. This should be s
 
 1. Place this folder in a directory of your choice. For these instructions I am going to refer this directory as `/AnalysisDirectory`
 
-2. Download and unzip MutantHunter code from this website
+2. Download and unzip MutantHuntWGS code from this website
 
-    1. Run the following command in the terminal `wget https://github.com/mae92/MutantHunter/archive/master.zip` (by copying and pasting it into the terminal window and pressing enter) 
+    1. Run the following command in the terminal `wget https://github.com/mae92/MutantHuntWGS/archive/master.zip` (by copying and pasting it into the terminal window and pressing enter) 
     
     2. Alternatively you can download from the website by performing the following steps
     
         1. On this GitHub page click on the green button labeled "Clone or Download"
         
-            ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image1.png)
+            ![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/images/image1.png)
             
         2. Click on the "Download ZIP" button in the dropdown menu
             
-            ![picture alt](https://github.com/mae92/MutantHunter/blob/master/images/image2.png)
+            ![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/images/image2.png)
             
-3. Place the `/MutantHunter-master` folder into `/AnalysisDirectory` (full path: `/Analysis_Directory/MutantHunter-master`)
+3. Place the `/MutantHuntWGS-master` folder into `/AnalysisDirectory` (full path: `/Analysis_Directory/MutantHuntWGS-master`)
 
 4. Create folders in `/Analysis_Directory` to place your data into. FASTQ file directory `/FASTQ` and place all FASTQ files into it (See instructions above)
 
@@ -153,22 +153,22 @@ More information about how to work with Docker Containers can be found here: htt
 
 1. Open the terminal
 
-2. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
+2. Set working directory to /Analysis_Directory/MutantHunt-master/DockerFile by typing `cd /Analysis_Directory/MutantHuntWGS-master/DockerFile`
 
-3. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build -t mutant_hunter - < Dockerfile-MutantHunter` If you are prompted for a password (by sudo) just type in your computer password.
+3. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build -t mutant_hunt_wgs - < Dockerfile-MutantHuntWGS` If you are prompted for a password (by sudo) just type in your computer password.
 
 4. Run this command to get info on the container you just built: `docker image ls`
 
-5. Run this command to run the container `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory:/MutantHunter/Analysis_Directory mutant_hunter` 
+5. Run this command to run the container `sudo docker run -it -v /Users/mitchellellison/Desktop/Analysis_Directory:/Main/Analysis_Directory mutant_hunter` 
 
 
 ## Running Mutant Hunter
 
-1. From within the Docker container navigate to the directory containing the MutantHunter software by running the following command `cd /MutantHunter/Analysis_Directory/MutantHunter-master/MutantHunter_Code`
+1. From within the Docker container navigate to the directory containing the MutantHuntWGS software by running the following command `cd /Main/Analysis_Directory/MutantHuntWGS-master/Code`
 
-2. Use the following command to make sure MutantHunter.sh is executable `chmod 777 MutantHunter.sh`
+2. Use the following command to make sure MutantHuntWGS.sh is executable `chmod 777 MutantHuntWGS.sh`
 
-3. Run MutantHunter as shown above.
+3. Run MutantHuntWGS as shown above.
 
 
 
