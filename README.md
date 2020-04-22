@@ -1,7 +1,7 @@
 # MutantHunter
 
 
-## A bioinformatics pipeline for identification and characterization of mutations in Saccharomyces cerevisiae from FASTQ files from a wild-type strain and one or more mutant strains.
+## A bioinformatics pipeline for identification and characterization of mutations in *Saccharomyces cerevisiae* from FASTQ files from a wild-type strain and one or more mutant strains.
 
 
 # Simple Setup / Quick Start
