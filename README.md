@@ -49,11 +49,11 @@ The -n option takes the prefix of the FASTQ file name for the wild-type strain. 
 
 ### -g
 
-The -g option takes the file PATH to the bowtie index files and the file prefix (genome). **Use exactly what is shown above for this command.
+The -g option takes the file PATH to the bowtie index files and the file prefix (genome). **Use exactly what is shown above for this command.**
 
 ### -f
 
-The -f option takes the file PATH and file name of the genome FASTA file (genome.fa) **Use exactly what is shown above for this command.
+The -f option takes the file PATH and file name of the genome FASTA file (genome.fa) **Use exactly what is shown above for this command.**
 
 ### -r
 
@@ -80,7 +80,7 @@ So a score of:
 
 ### -p
 
-The -p option takes the file PATH and file name of the ploidy file (genome.fa) **Use exactly what is shown above for this command.
+The -p option takes the file PATH and file name of the ploidy file (genome.fa) **Use exactly what is shown above for this command.**
 
 Ploidy files are available for haploid (ploidy_n1.txt) and diploid (ploidy_n2.txt) and are in the following format:
 
@@ -108,7 +108,7 @@ A sex of M or male was aribtrarily chosen and the MutantHunter program is expect
 
 ### -d
 
-Current working directory containing the FASTQ folder. If you set things up in the way that the instructions outline above this should stay the same as the example. **Use exactly what is shown above for this command.
+Current working directory containing the FASTQ folder. If you set things up in the way that the instructions outline above this should stay the same as the example. **Use exactly what is shown above for this command.**
 
 ### -o
 
