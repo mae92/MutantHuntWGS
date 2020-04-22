@@ -249,7 +249,7 @@ do
 
 	#Use SNPeff to find out some more information about these SNPs like the amino acid change in the resulting protein
 
-	java -Xmx4G -jar /MutantHunter/snpEff/snpEff.jar ann -v Saccharomyces_cerevisiae "$VCF_FILE" > "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"/SNPeff_Annotations.vcf
+	java -Xmx4G -jar /MutantHuntWGS/snpEff/snpEff.jar ann -v Saccharomyces_cerevisiae "$VCF_FILE" > "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"/SNPeff_Annotations.vcf
 
 done
 
@@ -267,7 +267,7 @@ do
 
 	##Run SIFT
 
-	java -Xmx4G -jar /MutantHunter/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /MutantHunter/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"_SIFT_Output
+	java -Xmx4G -jar /MutantHuntWGS/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /MutantHunter/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"_SIFT_Output
 
 done
 
