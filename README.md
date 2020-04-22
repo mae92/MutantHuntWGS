@@ -14,13 +14,13 @@
     
         1. Single end sequencing FASTQ file should be named: FILENAME.fastq.
         
-        2. Paried end sequencing FASTQ files should be named: FILENAME_R1.fastq and FILENAME_R2.fastq.
+        2. Paired end sequencing FASTQ files should be named: FILENAME_R1.fastq and FILENAME_R2.fastq.
         
         3. I suggest making copies of your FASTQ files rather then renaming the originals in case a mistake is made during the renaming process.
         
-        4. For this nameing example "FILENAME" will be used as the input for the -n option below.
+        4. For this naming example "FILENAME" will be used as the input for the -n option below.
 
-3. Open the Terminal and download and run the Docker container for MutantHunter by copying and pasteing the following command into the terminal: `docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/MutantHunter/Analysis_Directory mellison/mutant_hunter:version1`
+3. Open the Terminal and download and run the Docker container for MutantHunter by copying and pasting the following command into the terminal: `docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/MutantHunter/Analysis_Directory mellison/mutant_hunter:version1`
 
 4. Run MutantHunter by running the code below.
 ```
@@ -61,7 +61,7 @@ The -r option specifies whether the input data contains paired-end or single-end
 
 ### -s
 
-The -s option takes a score cuttoff for the variant scores. This score is calculated by the following formula: -10 * log10(P) where P is the probablity that the variant call (ALT) in the VCF file is wrong. 
+The -s option takes a score cutoff for the variant scores. This score is calculated by the following formula: -10 * log10(P) where P is the probability that the variant call (ALT) in the VCF file is wrong. 
 
 So a score of:
 
@@ -104,7 +104,7 @@ chrI	1	230218	M	1
 chrII	1	813184	M	2
 chrIII	1	316620	M	1
 ```
-A sex of M or male was aribtrarily chosen and the MutantHunter program is expecting that so it cannot be changed without editing MutantHunter.sh.
+A sex of M or male was arbitrarily chosen and the MutantHunter program is expecting that so it cannot be changed without editing MutantHunter.sh.
 
 ### -d
 
@@ -146,7 +146,7 @@ This allows you to specify a folder for your data to output to. This should be s
 
 Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer
 
-More infromation about how to work with Docker Containers can be found here: https://docs.docker.com
+More information about how to work with Docker Containers can be found here: https://docs.docker.com
 
 
 ## Building and Running the Container Locally
@@ -155,7 +155,7 @@ More infromation about how to work with Docker Containers can be found here: htt
 
 2. Set working directory to /Analysis_Directory/MutantHunter-master/DockerFile by typing `cd /Analysis_Directory/MutantHunter-master/DockerFile`
 
-3. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build -t mutant_hunter - < Dockerfile-MutantHunter` If you are promted for a password (by sudo) just type in your computer password.
+3. Run the following command (by copying and pasting it into the terminal window and pressing enter) to build the Docker container on your computer: `docker build -t mutant_hunter - < Dockerfile-MutantHunter` If you are prompted for a password (by sudo) just type in your computer password.
 
 4. Run this command to get info on the container you just built: `docker image ls`
 
@@ -164,7 +164,7 @@ More infromation about how to work with Docker Containers can be found here: htt
 
 ## Running Mutant Hunter
 
-1. From within the Docker conatiner navigate to the directory containing the MutantHunter software by running the following command `cd /MutantHunter/Analysis_Directory/MutantHunter-master/MutantHunter_Code`
+1. From within the Docker container navigate to the directory containing the MutantHunter software by running the following command `cd /MutantHunter/Analysis_Directory/MutantHunter-master/MutantHunter_Code`
 
 2. Use the following command to make sure MutantHunter.sh is executable `chmod 777 MutantHunter.sh`
 
