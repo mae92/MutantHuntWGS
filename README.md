@@ -24,7 +24,7 @@
 
 4. Run MutantHuntWGS by running the code below.
 ```
-./MutantHuntWGS.sh \
+MutantHuntWGS.sh \
     -n FILENAME \
     -g /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
     -f /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
