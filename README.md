@@ -130,12 +130,8 @@ This allows you to specify a folder for your data to output to. This should be s
     2. Alternatively you can download from the website by performing the following steps
     
         1. On this GitHub page click on the green button labeled "Clone or Download"
-        
-            ![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/images/image1.png)
             
         2. Click on the "Download ZIP" button in the dropdown menu
-            
-            ![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/images/image2.png)
             
 3. Place the `/MutantHuntWGS-master` folder into `/AnalysisDirectory` (full path: `/Analysis_Directory/MutantHuntWGS-master`)
 
