@@ -64,12 +64,19 @@ The -r option specifies whether the input data contains paired-end or single-end
 The -s option takes a score cuttoff for the variant scores. This score is calculated by the following formula: -10 * log10(P) where P is the probablity that the variant call (ALT) in the VCF file is wrong. 
 
 So a score of:
+
 10 means a P of 0.1 and a 10% chance the ALT is wrong
+
 20 means a P of 0.01 and a 1% chance the ALT is wrong
+
 30 means a P of 0.001 and a 0.1% chance the ALT is wrong
+
 40 means a P of 0.0001 and a 0.01% chance the ALT is wrong
+
 50 means a P of 0.00001 and a 0.001% chance the ALT is wrong
+
 100 means a P of 0.000000001 and a 0.0000001% chance the ALT is wrong
+
 
 ### -p
 
