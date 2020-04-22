@@ -1,7 +1,7 @@
 # MutantHunter
 
 
-#### A bioinformatics pipeline for identification and characterization of mutations in Saccharomyces cerevisiae from FASTQ files from a wild-type strain and one or more mutant strains.
+## A bioinformatics pipeline for identification and characterization of mutations in Saccharomyces cerevisiae from FASTQ files from a wild-type strain and one or more mutant strains.
 
 
 # Simple Setup / Quick Start
@@ -35,7 +35,7 @@
     -o /MutantHunter/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER
 ```
 
-#### Because the files and directory structure were set up ahead of time (on the Desktop and during the docker build), and all run out of the Docker container, the file paths in the above commands will all stay the same, but some of the options may change depending upon your needs. 
+## Because the files and directory structure were set up ahead of time (on the Desktop and during the docker build), and all run out of the Docker container, the file paths in the above commands will all stay the same, but some of the options may change depending upon your needs. 
 
 
 
@@ -43,23 +43,23 @@
 
 ## All options are required
 
-#### -n 
+### -n 
 
 The -n option takes the prefix of the FASTQ file name for the wild-type strain. For the example of FILENAME.fastq or FILENAME_R1.fastq this prefix would simply be "FILENAME".
 
-#### -g
+### -g
 
-The -g option takes the file PATH to the bowtie index files and the file prefix (genome). Use exactly what is shown above for this command.
+The -g option takes the file PATH to the bowtie index files and the file prefix (genome). **Use exactly what is shown above for this command.
 
-#### -f
+### -f
 
-The -f option takes the file PATH and file name of the genome FASTA file (genome.fa) Use exactly what is shown above for this command.
+The -f option takes the file PATH and file name of the genome FASTA file (genome.fa) **Use exactly what is shown above for this command.
 
-#### -r
+### -r
 
 The -r option specifies whether the input data contains paired-end or single-end reads and can take values of "paired" or "single".
 
-#### -s
+### -s
 
 The -s option takes a score cuttoff for the variant scores. This score is calculated by the following formula: -10 * log10(P) where P is the probablity that the variant call (ALT) in the VCF file is wrong. 
 
@@ -71,24 +71,41 @@ So a score of:
 50 means a P of 0.00001 and a 0.001% chance the ALT is wrong
 100 means a P of 0.000000001 and a 0.0000001% chance the ALT is wrong
 
-#### -p
+### -p
 
-The -p option takes the file PATH and file name of the ploidy file (genome.fa) Use exactly what is shown above for this command.
+The -p option takes the file PATH and file name of the ploidy file (genome.fa) **Use exactly what is shown above for this command.
 
 Ploidy files are available for haploid (ploidy_n1.txt) and diploid (ploidy_n2.txt) and are in the following format:
 
+chr start   end sex ploidy
 
+ploidy_n1.txt:
 
-#### -d
+chrI	1	230218	M	1
+chrII	1	813184	M	1
+chrIII	1	316620	M	1
 
+ploidy_n2.txt
 
-#### -o
+chrI	1	230218	M	2
+chrII	1	813184	M	2
+chrIII	1	316620	M	2
 
+so if you wanted to account for a ploidy of 2 on chromosome II in an otherwise haploid yeast strain you should be able to edit the file like this:
 
+chrI	1	230218	M	1
+chrII	1	813184	M	2
+chrIII	1	316620	M	1
 
+A sex of M or male was aribtrarily chosen and the MutantHunter program is expecting that so it cannot be changed without editing MutantHunter.sh.
 
+### -d
 
+Current working directory containing the FASTQ folder. If you set things up in the way that the instructions outline above this should stay the same as the example. **Use exactly what is shown above for this command.
 
+### -o
+
+This allows you to specify a folder for your data to output to. This should be structured like the example `/MutantHunter/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER` except you will come up with a descriptive name to replace the `NAME_YOUR_OUTPUT_FOLDER` part of the file PATH.
 
 
 
