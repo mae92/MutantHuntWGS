@@ -20,7 +20,7 @@
         
         4. For this nameing example "FILENAME" will be used as the input for the -n option below.
 
-3. Open the Terminal and download and run the Docker container for MutantHunter by copying and pasteing the following command into the terminal: `docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/MutantHunter/Analysis_Directory mellison/mutant_hunter:version1'
+3. Open the Terminal and download and run the Docker container for MutantHunter by copying and pasteing the following command into the terminal: `docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/MutantHunter/Analysis_Directory mellison/mutant_hunter:version1`
 
 4. Run MutantHunter by running the code below.
 ```
@@ -80,23 +80,23 @@ Ploidy files are available for haploid (ploidy_n1.txt) and diploid (ploidy_n2.tx
 chr start   end sex ploidy
 
 ploidy_n1.txt:
-
+```
 chrI	1	230218	M	1
 chrII	1	813184	M	1
 chrIII	1	316620	M	1
-
+```
 ploidy_n2.txt
-
+```
 chrI	1	230218	M	2
 chrII	1	813184	M	2
 chrIII	1	316620	M	2
-
+```
 so if you wanted to account for a ploidy of 2 on chromosome II in an otherwise haploid yeast strain you should be able to edit the file like this:
-
+```
 chrI	1	230218	M	1
 chrII	1	813184	M	2
 chrIII	1	316620	M	1
-
+```
 A sex of M or male was aribtrarily chosen and the MutantHunter program is expecting that so it cannot be changed without editing MutantHunter.sh.
 
 ### -d
@@ -161,23 +161,7 @@ More infromation about how to work with Docker Containers can be found here: htt
 
 2. Use the following command to make sure MutantHunter.sh is executable `chmod 777 MutantHunter.sh`
 
-3. Run MutantHunter by running the code below.
-
-```
-MutantHunter.sh \
-    -n PREFIX_FOR_YOUR_WT_FILE \
-    -g /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
-    -f /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
-    -r single \
-    -s 10 \
-    -p /MutantHunter/Analysis_Directory/MutantHunter-master/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
-    -d /MutantHunter/Analysis_Directory/My_Analysis \
-    -o /MutantHunter/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER
-```
-
-#### Because the files and directory structure were set up ahead of time and all run out of the Docker container the file paths in the above commands will all stay the same but some of the options may change depending upon your needs. 
-
-
+3. Run MutantHunter as shown above.
 
 
 
