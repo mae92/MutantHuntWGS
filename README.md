@@ -29,7 +29,7 @@ MutantHuntWGS.sh \
     -g /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
     -f /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
     -r single \
-    -s 10 \
+    -s 40 \
     -p /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
     -d /Main/Analysis_Directory \
     -o /Main/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER
