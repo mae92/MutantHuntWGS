@@ -33,6 +33,7 @@ MutantHuntWGS.sh \
     -p /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
     -d /Main/Analysis_Directory \
     -o /Main/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER
+    -a yes
 ```
 
 ## Because the files and directory structure were set up ahead of time (on the Desktop and during the docker build), and all run out of the Docker container, the file paths in the above commands will all stay the same, but some of the options may change depending upon your needs. 
@@ -114,7 +115,9 @@ Current working directory containing the FASTQ folder. If you set things up in t
 
 This allows you to specify a folder for your data to output to. This should be structured like the example `/Main/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER` except you will come up with a descriptive name to replace the `NAME_YOUR_OUTPUT_FOLDER` part of the file PATH.
 
+### -a
 
+This allows you to turn on and off the alignment and calling. So if you have already aligned reads and called variants and all that you want to do is reanalyze with a different score cuttoff then you can set this to "no", but if you are starting from FASTQ files that have not gone throught this process yet you set this to "yes"
 
 # Alternative Setup
 
