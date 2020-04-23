@@ -42,15 +42,17 @@ mkdir "$OUTPUT_FILE"/Alignment_Stats
 mkdir "$OUTPUT_FILE"/BCF
 mkdir "$OUTPUT_FILE"/VCF
 mkdir "$OUTPUT_FILE"/VCFtools_Output
-mkdir "$OUTPUT_FILE"/Filtered_Mutant_VCFs
 mkdir "$OUTPUT_FILE"/SNPeff_Output
 mkdir "$OUTPUT_FILE"/SIFT_Output
 
+
+echo -e "\n\n" Running MutantHuntWGS 
 
 ###################################
 ###     MODULE 1: Alignment     ###
 ###################################
 
+echo -e "\n\n" Aligning Reads to the Genome "\n"
 
 #Align all datasets in a single module up-front as Jen Walker suggested
 
@@ -93,7 +95,7 @@ do
 
 	samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-	echo "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz Mapped
+	echo  -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz Mapped "\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
 
 	done
 
@@ -128,7 +130,7 @@ then
 
 	samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-	echo "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz Mapped
+	echo -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz mapped"\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
 
 	done
 
@@ -143,7 +145,9 @@ fi
 ###  MODULE 2: Variant Calling  ###
 ###################################
 
+echo -e "\n\n" Calling Variants "\n"
 
+{
 
 for BAM_FILE in `ls "$OUTPUT_FILE"/BAM/*_sorted.bam`
 do
@@ -153,9 +157,11 @@ do
 	NAME_PREFIX=`echo "$BAM_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
 
 	#The first step is to use the SAMtools mpileup command to calculate the genotype likelihoods supported by the aligned reads in our sample
-
+	
+	{
 	samtools mpileup -g -f "$GENOME_FASTA" "$BAM_FILE" -o "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf
-
+	} &> /dev/null
+	
 	#-g: directs SAMtools to output genotype likelihoods in the binary call format (BCF). This is a compressed binary format.
 	#-f: directs SAMtools to use the specified reference genome. A reference genome must be specified.
 
@@ -166,6 +172,7 @@ do
 
 	bcftools call -c -v --samples-file "$OUTPUT_FILE"/BCF/sample_file.txt --ploidy-file "$PLOIDY_FILE" "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf > "$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf
 
+	echo -e Variants have been called and stored in "\n""$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf"\n"
 
 done
 
@@ -174,6 +181,8 @@ done
 #############################################
 ###  MODULE 3: Filter and Score Variants  ###
 #############################################
+
+echo -e "\n\n" Comparing all strains to the "$WILD_TYPE" wild-type strain "\n"
 
 #WILD_TYPE = the wild type file to compare all other files too
 
@@ -217,6 +226,9 @@ do
 
 done
 
+echo -e Comparisons complete
+
+
 #Remove unwanted directories
 rm -rf "$OUTPUT_FILE"/BCF
 rm -rf "$OUTPUT_FILE"/VCFtools_Output
@@ -233,6 +245,9 @@ rm `ls "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants_filtered*.vcf`
 ###   MODULE 4: Determine Variant Effects with SNPeff   ###
 ###########################################################
 
+echo -e "\n\n" Running SNPeff  "\n"
+
+
 cd "$OUTPUT_FILE"/SNPeff_Output
 
 for VCF_FILE in `ls "$OUTPUT_FILE"/VCF/*_filtered_and_scored.vcf`
@@ -248,16 +263,17 @@ do
 	cd "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"
 
 	#Use SNPeff to find out some more information about these SNPs like the amino acid change in the resulting protein
-
+	{
 	java -Xmx4G -jar /Main/snpEff/snpEff.jar ann -v Saccharomyces_cerevisiae "$VCF_FILE" > "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"/SNPeff_Annotations.vcf
-
+	} &> /dev/null
 done
-
 
 
 #################################################################
 ###   MODULE 5: Predict Variant Impact on Protein with SIFT   ###
 #################################################################
+
+echo -e "\n\n" Running SIFT  "\n"
 
 for VCF_FILE in `ls "$OUTPUT_FILE"/VCF/*_filtered_and_scored.vcf`
 do
@@ -266,10 +282,11 @@ do
 	VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
 
 	##Run SIFT
-
-	java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /Main/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"_SIFT_Output
-
+	{
+	java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /Main/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"
+	} &> /dev/null
 done
 
+echo -e "\n\n" Run Completed "\n\n\n\n"
 
 exit
