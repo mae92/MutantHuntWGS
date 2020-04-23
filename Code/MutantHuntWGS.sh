@@ -31,7 +31,7 @@ done
 
 
 #Remove Old Output directory
-rm -rf "$OUTPUT_FILE"
+# rm -rf "$OUTPUT_FILE"
 
 #Make Output directory
 mkdir "$OUTPUT_FILE"
