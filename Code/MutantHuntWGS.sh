@@ -73,33 +73,33 @@ then
 	##map FASTQ files using for-loop
 
 
-	for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*_R1.fastq.gz`
-	do
+		for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*_R1.fastq.gz`
+		do
 
-		##Align reads
+			##Align reads
 
-		#Using this command to get only the file name and lose the path
+			#Using this command to get only the file name and lose the path
 
-		NAME_PREFIX=`echo "$FASTQ_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
+			NAME_PREFIX=`echo "$FASTQ_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
 
-		bowtie2 --no-unal \
-			-q \
-			-k 2 \
-			-p 16 \
-			-x "$GENOME" \
-			-1 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R1.fastq.gz -2 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R2.fastq.gz \
-			2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
-			| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
+			bowtie2 --no-unal \
+				-q \
+				-k 2 \
+				-p 16 \
+				-x "$GENOME" \
+				-1 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R1.fastq.gz -2 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R2.fastq.gz \
+				2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
+				| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
 
-		##Sort BAM with Samtools
+			##Sort BAM with Samtools
 
-		samtools sort "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam -o "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
+			samtools sort "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam -o "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-		##Index BAM with Samtools
+			##Index BAM with Samtools
 
-		samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
+			samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-		echo  -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz Mapped "\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
+			echo  -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz Mapped "\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
 
 		done
 
@@ -111,30 +111,30 @@ then
 		for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*.fastq.gz`
 		do
 
-		#Using this command to get only the file name and lose the path
+			#Using this command to get only the file name and lose the path
 
-		NAME_PREFIX=`echo "$FASTQ_FILE" | awk -F "/" '{print $(NF)}' | awk -F "." '{print  $1}'`
+			NAME_PREFIX=`echo "$FASTQ_FILE" | awk -F "/" '{print $(NF)}' | awk -F "." '{print  $1}'`
 
-		##Align reads
+			##Align reads
 
-		bowtie2 --no-unal \
-			-q \
-			-k 2 \
-			-p 16 \
-			-x "$GENOME" \
-			-U "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX".fastq.gz \
-			2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
-			| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
+			bowtie2 --no-unal \
+				-q \
+				-k 2 \
+				-p 16 \
+				-x "$GENOME" \
+				-U "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX".fastq.gz \
+				2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
+				| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
 
-		##Sort BAM with Samtools
+			##Sort BAM with Samtools
 
-		samtools sort "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam -o "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
+			samtools sort "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam -o "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-		##Index BAM with Samtools
+			##Index BAM with Samtools
 
-		samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
+			samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-		echo -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz mapped"\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
+			echo -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz mapped"\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
 
 		done
 
@@ -151,7 +151,6 @@ then
 
 	echo -e "\n\n" Calling Variants "\n"
 
-	{
 
 	for BAM_FILE in `ls "$OUTPUT_FILE"/BAM/*_sorted.bam`
 	do
