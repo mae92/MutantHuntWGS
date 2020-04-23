@@ -20,7 +20,11 @@
         
         4. For this naming example "FILENAME" will be used as the input for the -n option below.
 
-3. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal: `docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/Main/Analysis_Directory mellison/mutant_hunt_wgs:version1`
+3. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal: 
+
+```
+docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/Main/Analysis_Directory mellison/mutant_hunt_wgs:version1
+```
 
 4. Run MutantHuntWGS by running the code below.
 ```
