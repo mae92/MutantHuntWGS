@@ -47,7 +47,7 @@ mkdir "$OUTPUT_FILE"/SNPeff_Output
 mkdir "$OUTPUT_FILE"/SIFT_Output
 
 
-if ["$ALIGNMENT_AND_CALLING" = "YES" ]
+if [ "$ALIGNMENT_AND_CALLING" = "YES" ]
 then
 
 	echo -e "\n\n" Running MutantHuntWGS 
