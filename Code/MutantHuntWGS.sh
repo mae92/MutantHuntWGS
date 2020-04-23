@@ -151,7 +151,6 @@ then
 
 	echo -e "\n\n" Calling Variants "\n"
 
-
 	for BAM_FILE in `ls "$OUTPUT_FILE"/BAM/*_sorted.bam`
 	do
 
@@ -161,10 +160,9 @@ then
 
 		#The first step is to use the SAMtools mpileup command to calculate the genotype likelihoods supported by the aligned reads in our sample
 	
-		{
-		samtools mpileup -g -f "$GENOME_FASTA" "$BAM_FILE" -o "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf
-		} &> /dev/null
-	
+
+		samtools mpileup -g -f "$GENOME_FASTA" "$BAM_FILE" -o "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf &> /dev/null
+		
 		#-g: directs SAMtools to output genotype likelihoods in the binary call format (BCF). This is a compressed binary format.
 		#-f: directs SAMtools to use the specified reference genome. A reference genome must be specified.
 
@@ -266,9 +264,8 @@ do
 	cd "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"
 
 	#Use SNPeff to find out some more information about these SNPs like the amino acid change in the resulting protein
-	{
-	java -Xmx4G -jar /Main/snpEff/snpEff.jar ann -v Saccharomyces_cerevisiae "$VCF_FILE" > "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"/SNPeff_Annotations.vcf
-	} &> /dev/null
+
+	java -Xmx4G -jar /Main/snpEff/snpEff.jar ann -v Saccharomyces_cerevisiae "$VCF_FILE" > "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"/SNPeff_Annotations.vcf &> /dev/null
 done
 
 
@@ -285,9 +282,9 @@ do
 	VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
 
 	##Run SIFT
-	{
-	java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /Main/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"
-	} &> /dev/null
+
+	java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /Main/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME" &> /dev/null
+
 done
 
 echo -e "\n\n" Run Completed "\n\n\n\n"
