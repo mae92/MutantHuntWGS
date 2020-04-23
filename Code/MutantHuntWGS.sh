@@ -267,7 +267,7 @@ do
 
 	##Run SIFT
 
-	java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /MutantHunter/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"_SIFT_Output
+	java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /Main/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"_SIFT_Output
 
 done
 
