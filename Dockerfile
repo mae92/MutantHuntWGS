@@ -17,6 +17,18 @@ RUN apt-get -qq update && \
 
 
 
+
+# Install MutantHuntWGS
+
+RUN git clone https://github.com/mae92/MutantHuntWGS.git
+
+RUN echo 'export PATH="/Main/MutantHuntWGS/Code:$PATH"' >> ~/.bashrc
+
+RUN chmod 777 /Main/MutantHuntWGS/Code/MutantHuntWGS.sh
+
+
+
+
 # Install bowtie2 (currently master, might want to grab 2.2.9)
 
 RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.9/bowtie2-2.2.9-linux-x86_64.zip/download && \
@@ -83,16 +95,6 @@ RUN wget https://sift.bii.a-star.edu.sg/sift4g/public/Saccharomyces_cerevisiae/E
 	unzip ./EF4.74.zip 
 
 RUN echo 'export PATH="/Main/SIFT4G_Annotator.jar:$PATH"' >> ~/.bashrc
-
-
-# Install MutantHuntWGS
-
-RUN git clone https://github.com/mae92/MutantHuntWGS.git
-
-RUN echo 'export PATH="/Main/MutantHuntWGS/Code:$PATH"' >> ~/.bashrc
-
-RUN chmod 777 /Main/MutantHuntWGS/Code/MutantHuntWGS.sh
-
 
 
 ADD . .
