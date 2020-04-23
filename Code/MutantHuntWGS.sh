@@ -5,7 +5,7 @@
 
 #Enable user input
 
-while getopts n:g:f:r:s:p:d:o: option
+while getopts n:g:f:r:s:p:d:o:a: option
 do
 case "${option}"
 in
@@ -17,6 +17,7 @@ s) SCORE=${OPTARG};;
 p) PLOIDY_FILE=${OPTARG};;
 d) ANALYSIS_DIRECTORY=${OPTARG};;
 o) OUTPUT_FILE=${OPTARG};;
+a) ALIGNMENT_AND_CALLING=${OPTARG};;
 esac
 done
 
@@ -46,137 +47,140 @@ mkdir "$OUTPUT_FILE"/SNPeff_Output
 mkdir "$OUTPUT_FILE"/SIFT_Output
 
 
-echo -e "\n\n" Running MutantHuntWGS 
-
-###################################
-###     MODULE 1: Alignment     ###
-###################################
-
-echo -e "\n\n" Aligning Reads to the Genome "\n"
-
-#Align all datasets in a single module up-front as Jen Walker suggested
-
-#Apply the -r option to signify if the input is paired-end or single-end end reads
-
-if [ "$READ_TYPE" = "paired" ]
+if ["$ALIGNMENT_AND_CALLING" = "YES" ]
 then
 
-#Alignment of all FASTQ Files if -r paired is set
+	echo -e "\n\n" Running MutantHuntWGS 
 
-#Run Bowtie 2 and convert output to BAM with Samtools
+	###################################
+	###     MODULE 1: Alignment     ###
+	###################################
 
-##Loop to process all files starts here
-##map FASTQ files using for-loop
+	echo -e "\n\n" Aligning Reads to the Genome "\n"
 
+	#Align all datasets in a single module up-front as Jen Walker suggested
 
-for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*_R1.fastq.gz`
-do
+	#Apply the -r option to signify if the input is paired-end or single-end end reads
 
-	##Align reads
+	if [ "$READ_TYPE" = "paired" ]
+	then
 
-	#Using this command to get only the file name and lose the path
+	#Alignment of all FASTQ Files if -r paired is set
 
-	NAME_PREFIX=`echo "$FASTQ_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
+	#Run Bowtie 2 and convert output to BAM with Samtools
 
-	bowtie2 --no-unal \
-		-q \
-		-k 2 \
-		-p 16 \
-		-x "$GENOME" \
-		-1 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R1.fastq.gz -2 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R2.fastq.gz \
-		2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
-		| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
-
-	##Sort BAM with Samtools
-
-	samtools sort "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam -o "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
-
-	##Index BAM with Samtools
-
-	samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
-
-	echo  -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz Mapped "\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
-
-	done
+	##Loop to process all files starts here
+	##map FASTQ files using for-loop
 
 
-elif [ "$READ_TYPE" = "single" ]
-then
-
-
-	for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*.fastq.gz`
+	for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*_R1.fastq.gz`
 	do
 
-	#Using this command to get only the file name and lose the path
+		##Align reads
 
-	NAME_PREFIX=`echo "$FASTQ_FILE" | awk -F "/" '{print $(NF)}' | awk -F "." '{print  $1}'`
+		#Using this command to get only the file name and lose the path
 
-	##Align reads
+		NAME_PREFIX=`echo "$FASTQ_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
 
-	bowtie2 --no-unal \
-		-q \
-		-k 2 \
-		-p 16 \
-		-x "$GENOME" \
-		-U "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX".fastq.gz \
-		2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
-		| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
+		bowtie2 --no-unal \
+			-q \
+			-k 2 \
+			-p 16 \
+			-x "$GENOME" \
+			-1 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R1.fastq.gz -2 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R2.fastq.gz \
+			2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
+			| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
 
-	##Sort BAM with Samtools
+		##Sort BAM with Samtools
 
-	samtools sort "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam -o "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
+		samtools sort "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam -o "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-	##Index BAM with Samtools
+		##Index BAM with Samtools
 
-	samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
+		samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-	echo -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz mapped"\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
+		echo  -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz Mapped "\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
+
+		done
+
+
+	elif [ "$READ_TYPE" = "single" ]
+	then
+
+
+		for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*.fastq.gz`
+		do
+
+		#Using this command to get only the file name and lose the path
+
+		NAME_PREFIX=`echo "$FASTQ_FILE" | awk -F "/" '{print $(NF)}' | awk -F "." '{print  $1}'`
+
+		##Align reads
+
+		bowtie2 --no-unal \
+			-q \
+			-k 2 \
+			-p 16 \
+			-x "$GENOME" \
+			-U "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX".fastq.gz \
+			2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
+			| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
+
+		##Sort BAM with Samtools
+
+		samtools sort "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam -o "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
+
+		##Index BAM with Samtools
+
+		samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
+
+		echo -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz mapped"\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
+
+		done
+
+	else
+
+		echo "Failed to Identify FASTQ Files"
+
+	fi
+
+
+	###################################
+	###  MODULE 2: Variant Calling  ###
+	###################################
+
+	echo -e "\n\n" Calling Variants "\n"
+
+	{
+
+	for BAM_FILE in `ls "$OUTPUT_FILE"/BAM/*_sorted.bam`
+	do
+
+
+		#Using this command to get only the file name and lose the path
+		NAME_PREFIX=`echo "$BAM_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
+
+		#The first step is to use the SAMtools mpileup command to calculate the genotype likelihoods supported by the aligned reads in our sample
+	
+		{
+		samtools mpileup -g -f "$GENOME_FASTA" "$BAM_FILE" -o "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf
+		} &> /dev/null
+	
+		#-g: directs SAMtools to output genotype likelihoods in the binary call format (BCF). This is a compressed binary format.
+		#-f: directs SAMtools to use the specified reference genome. A reference genome must be specified.
+
+		#The second step is to use bcftools:
+		#The bcftools call command uses the genotype likelihoods generated from the previous step to call SNPs and indels, and outputs the all identified variants in the variant call format (VFC), the file format created for the 1000 Genomes Project, and now widely used to represent genomic variants.
+
+		echo "$BAM_FILE" | awk '{print $1 "\t" "M"}' > "$OUTPUT_FILE"/BCF/sample_file.txt
+
+		bcftools call -c -v --samples-file "$OUTPUT_FILE"/BCF/sample_file.txt --ploidy-file "$PLOIDY_FILE" "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf > "$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf
+
+		echo -e Variants have been called and stored in "\n""$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf"\n"
 
 	done
 
-else
-
-	echo "Failed to Identify FASTQ Files"
-
 fi
-
-
-###################################
-###  MODULE 2: Variant Calling  ###
-###################################
-
-echo -e "\n\n" Calling Variants "\n"
-
-{
-
-for BAM_FILE in `ls "$OUTPUT_FILE"/BAM/*_sorted.bam`
-do
-
-
-	#Using this command to get only the file name and lose the path
-	NAME_PREFIX=`echo "$BAM_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
-
-	#The first step is to use the SAMtools mpileup command to calculate the genotype likelihoods supported by the aligned reads in our sample
-	
-	{
-	samtools mpileup -g -f "$GENOME_FASTA" "$BAM_FILE" -o "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf
-	} &> /dev/null
-	
-	#-g: directs SAMtools to output genotype likelihoods in the binary call format (BCF). This is a compressed binary format.
-	#-f: directs SAMtools to use the specified reference genome. A reference genome must be specified.
-
-	#The second step is to use bcftools:
-	#The bcftools call command uses the genotype likelihoods generated from the previous step to call SNPs and indels, and outputs the all identified variants in the variant call format (VFC), the file format created for the 1000 Genomes Project, and now widely used to represent genomic variants.
-
-	echo "$BAM_FILE" | awk '{print $1 "\t" "M"}' > "$OUTPUT_FILE"/BCF/sample_file.txt
-
-	bcftools call -c -v --samples-file "$OUTPUT_FILE"/BCF/sample_file.txt --ploidy-file "$PLOIDY_FILE" "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf > "$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf
-
-	echo -e Variants have been called and stored in "\n""$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf"\n"
-
-done
-
-
 
 #############################################
 ###  MODULE 3: Filter and Score Variants  ###
