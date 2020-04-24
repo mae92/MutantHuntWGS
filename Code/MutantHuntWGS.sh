@@ -15,7 +15,7 @@ f) GENOME_FASTA=${OPTARG};;
 r) READ_TYPE=${OPTARG};;
 s) SCORE=${OPTARG};;
 p) PLOIDY_FILE=${OPTARG};;
-d) ANALYSIS_DIRECTORY=${OPTARG};;
+d) FASTQ_DIRECTORY=${OPTARG};;
 o) OUTPUT_FILE=${OPTARG};;
 a) ALIGNMENT_AND_CALLING=${OPTARG};;
 esac
@@ -27,7 +27,7 @@ done
 # echo "$READ_TYPE"
 # echo "$SCORE"
 # echo "$OUTPUT_FILE"
-# echo "$ANALYSIS_DIRECTORY"
+# echo "$FASTQ_DIRECTORY"
 
 
 #Remove Old Output directory
@@ -73,7 +73,7 @@ then
 	##map FASTQ files using for-loop
 
 
-		for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*_R1.fastq.gz`
+		for FASTQ_FILE in `ls "$FASTQ_DIRECTORY"/*_R1.fastq.gz`
 		do
 
 			##Align reads
@@ -87,7 +87,7 @@ then
 				-k 2 \
 				-p 16 \
 				-x "$GENOME" \
-				-1 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R1.fastq.gz -2 "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"_R2.fastq.gz \
+				-1 "$FASTQ_DIRECTORY"/"$NAME_PREFIX"_R1.fastq.gz -2 "$FASTQ_DIRECTORY"/"$NAME_PREFIX"_R2.fastq.gz \
 				2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
 				| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
 
@@ -99,7 +99,7 @@ then
 
 			samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-			echo  -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz Mapped "\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
+			echo  -e Reads from "$FASTQ_DIRECTORY"/"$NAME_PREFIX"*.fastq.gz Mapped "\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
 
 		done
 
@@ -108,7 +108,7 @@ then
 	then
 
 
-		for FASTQ_FILE in `ls "$ANALYSIS_DIRECTORY"/FASTQ/*.fastq.gz`
+		for FASTQ_FILE in `ls "$FASTQ_DIRECTORY"/*.fastq.gz`
 		do
 
 			#Using this command to get only the file name and lose the path
@@ -122,7 +122,7 @@ then
 				-k 2 \
 				-p 16 \
 				-x "$GENOME" \
-				-U "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX".fastq.gz \
+				-U "$FASTQ_DIRECTORY"/"$NAME_PREFIX".fastq.gz \
 				2> "$OUTPUT_FILE"/Alignment_Stats/"$NAME_PREFIX"_bowtie2.txt \
 				| samtools view - -bS -q 30 > "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_unsorted.bam
 
@@ -134,7 +134,7 @@ then
 
 			samtools index "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam
 
-			echo -e Reads from "$ANALYSIS_DIRECTORY"/FASTQ/"$NAME_PREFIX"*.fastq.gz mapped"\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
+			echo -e Reads from "$FASTQ_DIRECTORY"/"$NAME_PREFIX"*.fastq.gz mapped"\n"and stored in "$OUTPUT_FILE"/BAM/"$NAME_PREFIX"_sorted.bam"\n"
 
 		done
 
