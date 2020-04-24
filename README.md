@@ -35,7 +35,7 @@ MutantHuntWGS.sh \
     -r single \
     -s 50 \
     -p /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
-    -d /Main/Analysis_Directory \
+    -d /Main/Analysis_Directory/FASTQ \
     -o /Main/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER
     -a yes
 ```
@@ -113,7 +113,7 @@ A sex of M or male was arbitrarily chosen and the MutantHuntWGS program is expec
 
 ### -d
 
-Current working directory containing the FASTQ folder. If you set things up in the way that the instructions outline above this should stay the same as the example. **Use exactly what is shown above for this command.**
+Directory containing your FASTQ files. If you set things up in the way that the instructions outline above this should stay the same as the example: `/PATH_TO_DESKTOP/Analysis_Directory/FASTQ`. **Use exactly what is shown above for this command.**
 
 ### -o
 
