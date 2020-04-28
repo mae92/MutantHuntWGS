@@ -255,12 +255,13 @@ cd "$OUTPUT_FILE"/SNPeff_Output
 for VCF_FILE in `ls "$OUTPUT_FILE"/VCF/*_filtered_and_scored.vcf`
 do
 
-	# Determine if VCF file contains variants
-	if [ `grep -v "^#" "$VCF_NAME" | wc -l` > 0 ]
-	then
+	#Using this command to get only the file name and lose the path
+	VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
 
-		#Using this command to get only the file name and lose the path
-		VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
+
+	# Determine if VCF file contains variants
+	if [ `grep -v "^#" "$VCF_FILE" | wc -l` > 0 ]
+	then
 	
 		#Make directory
 		mkdir "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"
@@ -273,7 +274,8 @@ do
 		java -Xmx4G -jar /Main/snpEff/snpEff.jar ann -v Saccharomyces_cerevisiae "$VCF_FILE" > "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"/SNPeff_Annotations.vcf
 	
 	else
-
+	
+		# Print Error Message
 		echo -e Unable to Run SNPeff because there are no variants in: "\n" "$VCF_NAME"
 	
 	fi
@@ -292,19 +294,19 @@ echo -e "\n\n" Running SIFT  "\n"
 for VCF_FILE in `ls "$OUTPUT_FILE"/VCF/*_filtered_and_scored.vcf`
 do
 
+	#Using this command to get only the file name and lose the path
+	VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
+
 	# Determine if VCF file contains variants
-	if [ `grep -v "^#" "$VCF_NAME" | wc -l` > 0 ]
+	if [ `grep -v "^#" "$VCF_FILE" | wc -l` > 0 ]
 	then
 
-		#Using this command to get only the file name and lose the path
-		VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
-
 		##Run SIFT
-
 		java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /Main/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"
 	
 	else
-
+	
+		# Print Error Message
 		echo -e Unable to Run SIFT because there are no variants in: "\n" "$VCF_NAME"
 	
 	fi
