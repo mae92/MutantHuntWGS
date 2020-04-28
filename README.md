@@ -1,7 +1,7 @@
 # MutantHuntWGS
 
 
-## A bioinformatics pipeline for identification and characterization of mutations in *Saccharomyces cerevisiae*. MutantHungWGS compares data, input in FASTQ format, from a mutant strain to a wild-type strain to identify high confidence sequence variants present only in the mutant. This pipeline was designed to be as user friendly as possible.
+## A bioinformatics pipeline for identification and characterization of mutations in *Saccharomyces cerevisiae*. MutantHuntWGS compares data, input in FASTQ format, from a mutant strain to a wild-type strain to identify high confidence sequence variants present only in the mutant. This pipeline was designed to be as user friendly as possible.
 
 
 # Setup and Run
