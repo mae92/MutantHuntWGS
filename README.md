@@ -13,11 +13,11 @@
 
 2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `./AnalysisDirectory`. Within `./AnalysisDirectory` create a file directory named `./FASTQ` and place all FASTQ files into it (full path: `./PATH_TO_DESKTOP/Analysis_Directory/FASTQ`). 
 
-    1. Ensure that FASTQ files adhere to the naming convention described below. **THIS IS REALLY IMPORTANT.**
+    1. Ensure that FASTQ files are gzipped (can run `gzip FILENAME.fastq` to generate `FILENAME.fastq.gz`) and adhere to the naming convention described below. **THIS IS REALLY IMPORTANT.**
     
-        1. Single end sequencing FASTQ file should be named: FILENAME.fastq.
+        1. Single end sequencing FASTQ file should be named: FILENAME.fastq.gz
         
-        2. Paired end sequencing FASTQ files should be named: FILENAME_R1.fastq and FILENAME_R2.fastq.
+        2. Paired end sequencing FASTQ files should be named: FILENAME_R1.fastq.gz and FILENAME_R2.fastq.gz
         
         3. I suggest making copies of your FASTQ files rather then renaming the originals in case a mistake is made during the renaming process.
         
@@ -127,3 +127,15 @@ This allows you to specify a folder for your data to output to. This should be s
 ### -a
 
 This allows you to turn on and off the alignment and calling step. So if you have already aligned reads and called variants and all that you want to do is reanalyze with a different score cuttoff then you can set this to "NO", but if you are starting from FASTQ files that have not gone throught this process yet you set this to "YES"
+
+
+
+# Understanding the MutantHuntWGS output
+
+## Directory organization
+
+![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/Figure_1_for_GitHub.jpg)
+
+
+## File contents
+
