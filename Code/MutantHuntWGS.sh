@@ -21,42 +21,98 @@ a) ALIGNMENT_AND_CALLING=${OPTARG};;
 esac
 done
 
-# echo "$FASTQ"
-# echo "$GENOME"
-# echo "$GENOME_FASTA"
-# echo "$READ_TYPE"
-# echo "$SCORE"
-# echo "$OUTPUT_FILE"
-# echo "$FASTQ_DIRECTORY"
+
+if [ -z "$WILD_TYPE" ]
+then
+      echo -e "-n option is empty"
+      exit
+fi
+
+if [ -z "$GENOME" ]
+then
+      echo -e "-g option is empty"
+      exit
+fi
+
+if [ -z "$GENOME_FASTA" ]
+then
+      echo -e "-f option is empty"
+      exit
+fi
+
+if [ -z "$READ_TYPE" ]
+then
+      echo -e "-r option is empty"
+      exit
+fi
+
+if [ -z "$SCORE" ]
+then
+      echo -e "-s option is empty"
+      exit
+fi
+
+if [ -z "$PLOIDY_FILE" ]
+then
+      echo -e "-p option is empty"
+      exit
+fi
+
+if [ -z "$FASTQ_DIRECTORY" ]
+then
+      echo -e "-d option is empty"
+      exit
+fi
+
+if [ -z "$OUTPUT_FILE" ]
+then
+      echo -e "-o option is empty"
+      exit
+fi
+
+if [ -z "$ALIGNMENT_AND_CALLING" ]
+then
+      echo -e "-a option is empty"
+      exit
+fi
 
 
-#Remove Old Output directory
-# rm -rf "$OUTPUT_FILE"
-
-#Make Output directory
-mkdir "$OUTPUT_FILE"
 
 
-#make some directories
-mkdir "$OUTPUT_FILE"/BAM
-mkdir "$OUTPUT_FILE"/Alignment_Stats
-mkdir "$OUTPUT_FILE"/BCF
-mkdir "$OUTPUT_FILE"/VCF
-mkdir "$OUTPUT_FILE"/VCFtools_Output
-mkdir "$OUTPUT_FILE"/SNPeff_Output
-mkdir "$OUTPUT_FILE"/SIFT_Output
+if [ "$ALIGNMENT_AND_CALLING" = "YES" ]
+then
+	#Remove Old Output directory
+	rm -rf "$OUTPUT_FILE"
+	
+	#Make Output directory
+	mkdir "$OUTPUT_FILE"
+	
+	#make some directories
+	mkdir "$OUTPUT_FILE"/BAM
+	mkdir "$OUTPUT_FILE"/Alignment_Stats
+	mkdir "$OUTPUT_FILE"/BCF
+	mkdir "$OUTPUT_FILE"/VCF
+	mkdir "$OUTPUT_FILE"/VCFtools_Output
+	mkdir "$OUTPUT_FILE"/SNPeff_Output
+	mkdir "$OUTPUT_FILE"/SIFT_Output
+
+fi
+
+
+
+
 
 
 if [ "$ALIGNMENT_AND_CALLING" = "YES" ]
 then
 
-	echo -e "\n\n" Running MutantHuntWGS 
+	echo -e "\n\n\n\n\n\n"Running MutantHuntWGS 
 
 	###################################
 	###     MODULE 1: Alignment     ###
 	###################################
 
-	echo -e "\n\n" Aligning Reads to the Genome "\n"
+	echo -e "\n\n\n\n\n\n"Aligning Reads to the Genome "\n"
 
 	#Align all datasets in a single module up-front as Jen Walker suggested
 
@@ -140,7 +196,7 @@ then
 
 	else
 
-		echo "Failed to Identify FASTQ Files"
+		echo "Failed to Identify Read Type Files"
 
 	fi
 
@@ -149,11 +205,10 @@ then
 	###  MODULE 2: Variant Calling  ###
 	###################################
 
-	echo -e "\n\n" Calling Variants "\n"
+	echo -e "\n\n\n\n\n\n"Calling Variants "\n"
 
 	for BAM_FILE in `ls "$OUTPUT_FILE"/BAM/*_sorted.bam`
 	do
-
 
 		#Using this command to get only the file name and lose the path
 		NAME_PREFIX=`echo "$BAM_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
@@ -179,114 +234,150 @@ then
 
 fi
 
-#############################################
-###  MODULE 3: Filter and Score Variants  ###
-#############################################
-
-echo -e "\n\n" Comparing all strains to the "$WILD_TYPE" wild-type strain "\n"
-
-#WILD_TYPE = the wild type file to compare all other files too
-
-for MUTANT_VCF in `ls "$OUTPUT_FILE"/VCF/*_variants.vcf`
-do
-
-	#Using this command to get only the file name and lose the path
-	MUTANT=`echo "$MUTANT_VCF" | awk -F "/" '{print $(NF)}' | awk -F "." '{print  $1}'`
-
-
-	#Compare variations in the two files
-
-	vcftools --vcf "$OUTPUT_FILE"/VCF/"$MUTANT".vcf --diff "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants.vcf --diff-site --out "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_VCFtools_output.txt
-
-	##These next two steps are to produce VCF files from the output for downstream applications
-
-	##Here I am using awk to remove the third column so that I can make files for use with the grep command below
-
-	awk -F "\t" '$2 != $3' "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_VCFtools_output.txt.diff.sites_in_files | awk -F "\t" '$3 == "." {print $1 "\t" $2}' > "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_for_grep.txt
-
-
-	#VCF file construction
-
-	##Grep variants of intrest from Mutant VCF
-
-	grep -f "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_for_grep.txt "$OUTPUT_FILE"/VCF/"$MUTANT".vcf > "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered.tmp
-
-
-	#Get VCF header information so we can add it to the new file allowing it to be viewed in IGV
-	grep "^#" "$OUTPUT_FILE"/VCF/"$MUTANT".vcf > "$OUTPUT_FILE"/VCF/VCF_header.tmp
-
-	#Score variants based on user input
-	awk ' $6 >= '$SCORE' {print}' "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered.tmp > "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered_and_scored.tmp
-
-	#Add header to filtered variants to generate a proper VCF file
-	cat "$OUTPUT_FILE"/VCF/VCF_header.tmp "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered.tmp > "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered.vcf
-
-	#Add header to filtered and scored variants to generate a proper VCF file
-	cat "$OUTPUT_FILE"/VCF/VCF_header.tmp "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered_and_scored.tmp > "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered_and_scored.vcf
-
-
-done
-
-echo -e Comparisons complete
-
-
-#Remove unwanted directories
-rm -rf "$OUTPUT_FILE"/BCF
-rm -rf "$OUTPUT_FILE"/VCFtools_Output
-
-#Remove unwanted files
-rm "$OUTPUT_FILE"/BAM/*_unsorted.bam
-rm "$OUTPUT_FILE"/VCF/*.tmp
-rm `ls "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants_filtered*.vcf`
 
 
 
+if [ `ls "$OUTPUT_FILE"/BAM | wc -l` > 0 ]
+then
 
-###########################################################
-###   MODULE 4: Determine Variant Effects with SNPeff   ###
-###########################################################
+	#############################################
+	###  MODULE 3: Filter and Score Variants  ###
+	#############################################
 
-echo -e "\n\n" Running SNPeff  "\n"
+	echo -e "\n\n\n\n\n\n"Comparing all strains to the "$WILD_TYPE" wild-type strain "\n"
+
+	#WILD_TYPE = the wild type file to compare all other files too
+
+	for MUTANT_VCF in `ls "$OUTPUT_FILE"/VCF/*_variants.vcf`
+	do
+
+		#Using this command to get only the file name and lose the path
+		MUTANT=`echo "$MUTANT_VCF" | awk -F "/" '{print $(NF)}' | awk -F "." '{print  $1}'`
 
 
-cd "$OUTPUT_FILE"/SNPeff_Output
+		#Compare variations in the two files
 
-for VCF_FILE in `ls "$OUTPUT_FILE"/VCF/*_filtered_and_scored.vcf`
-do
+		vcftools --vcf "$OUTPUT_FILE"/VCF/"$MUTANT".vcf --diff "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants.vcf --diff-site --out "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_VCFtools_output.txt
 
-	#Using this command to get only the file name and lose the path
-	VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
+		##These next two steps are to produce VCF files from the output for downstream applications
+
+		##Here I am using awk to remove the third column so that I can make files for use with the grep command below
+
+		awk -F "\t" '$2 != $3' "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_VCFtools_output.txt.diff.sites_in_files | awk -F "\t" '$3 == "." {print $1 "\t" $2}' > "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_for_grep.txt
+
+
+		#VCF file construction
+
+		##Grep variants of intrest from Mutant VCF
+
+		grep -f "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_for_grep.txt "$OUTPUT_FILE"/VCF/"$MUTANT".vcf > "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered.tmp
+
+
+		#Get VCF header information so we can add it to the new file allowing it to be viewed in IGV
+		grep "^#" "$OUTPUT_FILE"/VCF/"$MUTANT".vcf > "$OUTPUT_FILE"/VCF/VCF_header.tmp
+
+		#Score variants based on user input
+		awk ' $6 >= '$SCORE' {print}' "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered.tmp > "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered_and_scored.tmp
+
+		#Add header to filtered variants to generate a proper VCF file
+		cat "$OUTPUT_FILE"/VCF/VCF_header.tmp "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered.tmp > "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered.vcf
+
+		#Add header to filtered and scored variants to generate a proper VCF file
+		cat "$OUTPUT_FILE"/VCF/VCF_header.tmp "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered_and_scored.tmp > "$OUTPUT_FILE"/VCF/"$MUTANT"_filtered_and_scored.vcf
+
+
+	done
+
+	echo -e Comparisons complete
+
+
+	#Remove unwanted directories
+	rm -rf "$OUTPUT_FILE"/BCF
+	rm -rf "$OUTPUT_FILE"/VCFtools_Output
+
+	#Remove unwanted files
+	rm "$OUTPUT_FILE"/BAM/*_unsorted.bam
+	rm "$OUTPUT_FILE"/VCF/*.tmp
+	rm `ls "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants_filtered*.vcf`
+
+
+
+
+
+	###########################################################
+	###   MODULE 4: Determine Variant Effects with SNPeff   ###
+	###########################################################
+
+	echo -e "\n\n\n\n\n\n"Running SNPeff  "\n"
+
+
+	cd "$OUTPUT_FILE"/SNPeff_Output
+
+	for VCF_FILE in `ls "$OUTPUT_FILE"/VCF/*_filtered_and_scored.vcf`
+	do
+
+		#Using this command to get only the file name and lose the path
+		VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
+
+
+		# Determine if VCF file contains variants
+		if [ `grep -v "^#" "$VCF_FILE" | wc -l` = 0 ]
+		then
 	
-	#Make directory
-	mkdir "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"
+			# Print Error Message
+			echo -e ERROR: Unable to Run SNPeff because there are no variants in: "\n" "$VCF_NAME"
+
+		else
+		
+			#Make directory
+			mkdir "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"
+
+			#set as working directory
+			cd "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"
+
+			#Use SNPeff to find out some more information about these SNPs like the amino acid change in the resulting protein
+
+			java -Xmx4G -jar /Main/snpEff/snpEff.jar ann -v Saccharomyces_cerevisiae "$VCF_FILE" > "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"/SNPeff_Annotations.vcf
+
+		fi
 	
-	#set as working directory
-	cd "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"
-
-	#Use SNPeff to find out some more information about these SNPs like the amino acid change in the resulting protein
-
-	java -Xmx4G -jar /Main/snpEff/snpEff.jar ann -v Saccharomyces_cerevisiae "$VCF_FILE" > "$OUTPUT_FILE"/SNPeff_Output/"$VCF_NAME"/SNPeff_Annotations.vcf
-done
+	done
 
 
-#################################################################
-###   MODULE 5: Predict Variant Impact on Protein with SIFT   ###
-#################################################################
 
-echo -e "\n\n" Running SIFT  "\n"
 
-for VCF_FILE in `ls "$OUTPUT_FILE"/VCF/*_filtered_and_scored.vcf`
-do
+	#################################################################
+	###   MODULE 5: Predict Variant Impact on Protein with SIFT   ###
+	#################################################################
 
-	#Using this command to get only the file name and lose the path
-	VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
+	echo -e "\n\n\n\n\n\n"Running SIFT  "\n"
 
-	##Run SIFT
+	for VCF_FILE in `ls "$OUTPUT_FILE"/VCF/*_filtered_and_scored.vcf`
+	do
 
-	java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /Main/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"
+		#Using this command to get only the file name and lose the path
+		VCF_NAME=`echo "$VCF_FILE" | awk -F "/" '{print $(NF)}' | awk -F "_" '{print  $1}'`
 
-done
+		# Determine if VCF file contains variants
+		if [ `grep -v "^#" "$VCF_FILE" | wc -l` = 0 ]
+		then
 
-echo -e "\n\n" Run Completed "\n\n\n\n"
+			echo -e ERROR: Unable to Run SIFT because there are no variants in: "\n" "$VCF_NAME"
 
-exit
+		else
+	
+			##Run SIFT
+			java -Xmx4G -jar /Main/SIFT4G_Annotator.jar -c -i "$VCF_FILE"  -d /Main/EF4.74 -r "$OUTPUT_FILE"/SIFT_Output/"$VCF_NAME"
+	
+	
+		fi
+
+	done
+
+	echo -e "\n\n\n\n\n\n" Run Completed "\n\n\n\n"
+
+	exit
+
+else 
+	exit
+fi
