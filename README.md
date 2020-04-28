@@ -34,11 +34,11 @@ docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/Main/Analysis_Directory m
 ## 3. Run MutantHuntWGS by running the code below to test.
 ```
 MutantHuntWGS.sh \
-    -n FILENAME \
+    -n wttoy \
     -g /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
     -f /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
     -r single \
-    -s 100 \
+    -s 0 \
     -p /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
     -d /Main/MutantHuntWGS/FASTQ_test \
     -o /Main/Analysis_Directory/test_output \
