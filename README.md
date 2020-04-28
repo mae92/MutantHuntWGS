@@ -14,10 +14,15 @@
 **2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `./AnalysisDirectory`. Within `./AnalysisDirectory` create a file directory named `./FASTQ` and place all FASTQ files into it (full path: `./PATH_TO_DESKTOP/Analysis_Directory/FASTQ`).**
 
 **3. Ensure that FASTQ files are gzipped (can run `gzip FILENAME.fastq` to generate `FILENAME.fastq.gz`) and adhere to the naming convention described below. THIS IS REALLY IMPORTANT.**
+
         1. Single end sequencing FASTQ file should be named: FILENAME.fastq.gz
+        
         2. Paired end sequencing FASTQ files should be named: FILENAME_R1.fastq.gz and FILENAME_R2.fastq.gz
+        
         3. I suggest making copies of your FASTQ files rather then renaming the originals in case a mistake is made during the renaming process.
+        
         4. For this naming example "FILENAME" will be used as the input for the -n option below. 
+        
         5. "FILENAME" should not have any spaces or punctuation, not even underscores.
 
 **4. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal: **
