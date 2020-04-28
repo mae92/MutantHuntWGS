@@ -4,7 +4,7 @@
 ## A bioinformatics pipeline for identification and characterization of mutations in *Saccharomyces cerevisiae*. MutantHuntWGS compares data, input in FASTQ format, from a mutant strain to a wild-type strain to identify high confidence sequence variants present only in the mutant. This pipeline was designed to be as user friendly as possible.
 
 
-![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/Figure_1_for_GitHub.jpg)
+![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/images/Figure_1_for_GitHub.jpg)
 
 
 # Setup and Run
@@ -136,7 +136,7 @@ This allows you to turn on and off the alignment and calling step. So if you hav
 
 The image below shows an example of the directory I set up on my Desktop when testing the software. I named the directory `./Analysis_Directory.tmp` and placed my test FASTQ files into two folders `./FASTQ_toy_paired` and `./FASTQ_toy_single` which each have examples of proper naming for FASTQ files from paired-end and single-end reads. The rest of the folders and files you see are the output of the MutantHuntWGS pipeline. I have expanded the directory for the test of single end read containing FASTQ files to show the full output of the program. 
 
-![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/Directory_Example.png)
+![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/images/Directory_Example.png)
 
 ## Folder and File contents
 
