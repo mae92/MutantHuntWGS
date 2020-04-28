@@ -25,7 +25,7 @@
 
    * "FILENAME" should not have any spaces or punctuation, not even underscores.
 
-**4. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal: **
+**4. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal:**
 
 ```
 docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/Main/Analysis_Directory mellison/mutant_hunt_wgs:version1
