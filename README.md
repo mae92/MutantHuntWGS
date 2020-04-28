@@ -134,8 +134,32 @@ This allows you to turn on and off the alignment and calling step. So if you hav
 
 ## Directory organization
 
-![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/Figure_1_for_GitHub.jpg)
+The image below shows an example of the directory I set up on my Desktop when testing the software. I named the directory `./Analysis_Directory.tmp` and placed my test FASTQ files into two folders `./FASTQ_toy_paired` and `./FASTQ_toy_single` which each have examples of proper naming for FASTQ files from paired-end and single-end reads. The rest of the folders and files you see are the output of the MutantHuntWGS pipeline. I have expanded the directory for the test of single end read containing FASTQ files to show the full output of the program. 
+
+![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/Directory_Example.png)
+
+## Folder and File contents
+
+### Alignment_Stats
+
+Contains TXT files with the stats that Bowtie2 normally would print to the screen. This tells you how many reads you had in your input file and how well they aligned to the reference genome. One file will be generated per sample.
+
+### BAM
+
+Contains alignment results in BAM format (.bam) as well as index files for each BAM (.bai). One file will be generated per sample. 
+
+### VCF
+
+Contains variant calles in VCF format. Files labled SAMPLE_variants.vcf contain all variants called. One of these will be generated for every sample. SAMPLE_variants_filtered.vcf contains the variants for each mutant after comparing to the wild-type. SAMPLE_variants_filtered_and_scored.vcf contains variants from SAMPLE_variants_filtered.vcf that passed the user assigned quality score.
+
+### SNPeff_Output
+
+Contains a folder for each mutant within which you will find VCF, TXT and HTML files with the output of the SNPeff program. This program will map variants to protein coding genes and regions upstream and downstream of those genes. The HTML is a high level summary of the data. The TXT file is a table of genes with counts of the number of variants within each gene that fall into a number of catagories (given in the column names). The VCF file contains all the variants input into SNPeff but now includes additional information following `ANN=` in the info field. The Events.log contains inforamation on the the run such as errors etc. 
+
+### SIFT_Output
+
+Contains a folder for each mutant within which you will find an XLS and VCF file. This program will map variants within protein coding genes only and score them based off how badly they are predicted to alter protein function. The XLS file contains information on all variants and provides the SIFT scores (SIFT_SCORE column) and interpretation of those scores (SIFT_PREDICTION column) as well as additional information about each variant. The VCF file contains all the variants input into SIFT, but now includes additional information following `SIFTINFO=` in the info field.
 
 
-## File contents
+
 
