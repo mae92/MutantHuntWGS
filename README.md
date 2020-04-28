@@ -6,6 +6,9 @@
 
 ![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/Figure_1_for_GitHub.jpg)
 
+1. 
+        1. 
+        2. 
 
 # Setup and Run
 
