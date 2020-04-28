@@ -8,7 +8,7 @@
 
 1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer.
 
-2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `/AnalysisDirectory`. Within `/AnalysisDirectory` create a file directory named `/FASTQ` and place all FASTQ files into it (full path: `/PATH_TO_DESKTOP/Analysis_Directory/FASTQ`). 
+2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `./AnalysisDirectory`. Within `./AnalysisDirectory` create a file directory named `./FASTQ` and place all FASTQ files into it (full path: `./PATH_TO_DESKTOP/Analysis_Directory/FASTQ`). 
 
     1. Ensure that FASTQ files adhere to the naming convention described below. **THIS IS REALLY IMPORTANT.**
     
