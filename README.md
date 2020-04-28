@@ -13,7 +13,7 @@
 
 2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `./AnalysisDirectory`. Within `./AnalysisDirectory` create a file directory named `./FASTQ` and place all FASTQ files into it (full path: `./PATH_TO_DESKTOP/Analysis_Directory/FASTQ`). 
 
-    1. Ensure that FASTQ files are gzipped (can run `gzip FILENAME.fastq` to generate `FILENAME.fastq.gz`) and adhere to the naming convention described below. **THIS IS REALLY IMPORTANT.**
+## 1. Ensure that FASTQ files are gzipped (can run `gzip FILENAME.fastq` to generate `FILENAME.fastq.gz`) and adhere to the naming convention described below. **THIS IS REALLY IMPORTANT.**
     
         1. Single end sequencing FASTQ file should be named: FILENAME.fastq.gz
         
@@ -25,13 +25,13 @@
         
         5. "FILENAME" should not have any spaces or punctuation, not even underscores.
 
-3. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal: 
+## 2. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal: 
 
 ```
 docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/Main/Analysis_Directory mellison/mutant_hunt_wgs:version1
 ```
 
-4. Run MutantHuntWGS by running the code below.
+## 3. Run MutantHuntWGS by running the code below to test.
 ```
 MutantHuntWGS.sh \
     -n FILENAME \
@@ -40,12 +40,12 @@ MutantHuntWGS.sh \
     -r single \
     -s 100 \
     -p /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
-    -d /Main/Analysis_Directory/FASTQ \
-    -o /Main/Analysis_Directory/NAME_YOUR_OUTPUT_FOLDER \
+    -d /Main/MutantHuntWGS/FASTQ_test \
+    -o /Main/Analysis_Directory/test_output \
     -a YES
 ```
 
-## Because the files and directory structure were set up ahead of time (on the Desktop and during the docker build), and this all runs out of the Docker container, *the file paths in the above commands will all stay the same*, but some of the options may change depending upon your needs. 
+### Because the files and directory structure were set up ahead of time (on the Desktop and during the docker build), and this all runs out of the Docker container, *the file paths in the above commands will all stay the same*, but some of the options may change depending upon your needs. 
 
 
 
