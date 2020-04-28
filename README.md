@@ -6,9 +6,6 @@
 
 ![picture alt](https://github.com/mae92/MutantHuntWGS/blob/master/Figure_1_for_GitHub.jpg)
 
-1. 
-        1. 
-        2. 
 
 # Setup and Run
 
@@ -18,15 +15,15 @@
 
 **3. Ensure that FASTQ files are gzipped (can run `gzip FILENAME.fastq` to generate `FILENAME.fastq.gz`) and adhere to the naming convention described below. THIS IS REALLY IMPORTANT.**
 
-        1. Single end sequencing FASTQ file should be named: FILENAME.fastq.gz
-        
-        2. Paired end sequencing FASTQ files should be named: FILENAME_R1.fastq.gz and FILENAME_R2.fastq.gz
-        
-        3. I suggest making copies of your FASTQ files rather then renaming the originals in case a mistake is made during the renaming process.
-        
-        4. For this naming example "FILENAME" will be used as the input for the -n option below. 
-        
-        5. "FILENAME" should not have any spaces or punctuation, not even underscores.
+1. Single end sequencing FASTQ file should be named: FILENAME.fastq.gz
+
+2. Paired end sequencing FASTQ files should be named: FILENAME_R1.fastq.gz and FILENAME_R2.fastq.gz
+
+3. I suggest making copies of your FASTQ files rather then renaming the originals in case a mistake is made during the renaming process.
+
+4. For this naming example "FILENAME" will be used as the input for the -n option below. 
+
+5. "FILENAME" should not have any spaces or punctuation, not even underscores.
 
 **4. Open the Terminal and download and run the Docker container for MutantHuntWGS by copying and pasting the following command into the terminal: **
 
