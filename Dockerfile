@@ -7,14 +7,17 @@ WORKDIR /Main
 
 
 
+# remove interactive dialogue with debian front end during automated build
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+
+
 # We need to get the basic bash commands we need
 
 RUN apt-get -qq update && \
-    apt-get -qq -y install apt-utils && \
-    apt-get -qq -y install wget unzip bzip2 gcc git \
-							libncurses5-dev zlib1g-dev make python g++ \
-							libtbb-dev pkg-config default-jre
-
+	apt-get -qq -y install apt-utils && \
+	apt-get -qq -y install wget unzip bzip2 gcc git libncurses5-dev zlib1g-dev make python g++ libtbb-dev pkg-config default-jre
 
 
 
