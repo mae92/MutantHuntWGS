@@ -235,6 +235,13 @@ then
 fi
 
 
+if [ "$ALIGNMENT_AND_CALLING" = "NO" ]
+then
+
+	mkdir "$OUTPUT_FILE"/VCFtools_Output
+
+fi
+
 
 
 if [ `ls "$OUTPUT_FILE"/BAM | wc -l` > 0 ]
