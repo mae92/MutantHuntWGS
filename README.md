@@ -11,9 +11,9 @@
 
 **1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer.**
 
-**2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `./AnalysisDirectory`. Within `./AnalysisDirectory` create a file directory named `./FASTQ` and place all FASTQ files into it (full path: `./PATH_TO_DESKTOP/Analysis_Directory/FASTQ`).**
+**2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `./Analysis_Directory`. Within `./Analysis_Directory` create a file directory named `./FASTQ` inside of `./Analysis_Directory` and place all FASTQ files into it (full path: `./PATH_TO_DESKTOP/Analysis_Directory/FASTQ`).**
 
-**3. Ensure that FASTQ files are gzipped (can run `gzip FILENAME.fastq` to generate `FILENAME.fastq.gz`) and adhere to the naming convention described below. THIS IS REALLY IMPORTANT.**
+**3. Ensure that FASTQ files are gzipped (can run `gzip FILENAME.fastq` to generate `FILENAME.fastq.gz`) and adhere to the naming convention described below and that all gzipped FASTQ files (fastq.gz) are placed into the FASTQ folder that you created in Step 2. THIS IS REALLY IMPORTANT.**
 
    * Single end sequencing FASTQ file should be named: FILENAME.fastq.gz
 
