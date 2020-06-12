@@ -9,7 +9,8 @@
 
 # Setup and Run
 
-**1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer.**
+**1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer. Our container contains Ubuntu linux and has been tested on multiple Macbook Pro computers, but it may require additional work to properly install Docker on a Windows computer in a way that allows it to run this type of container, Windows users please review the information on these webpages: https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/linux-containers and https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux.**
+
 
 **2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `./Analysis_Directory`. Within `./Analysis_Directory` create a file directory named `./FASTQ` inside of `./Analysis_Directory` and place all FASTQ files into it (full path: `./PATH_TO_DESKTOP/Analysis_Directory/FASTQ`).**
 
@@ -152,9 +153,9 @@ Contains alignment results in BAM format (.bam) as well as index files for each 
 
 Contains variant calles in VCF format. Files labled SAMPLE_variants.vcf contain all variants called. One of these will be generated for every sample. SAMPLE_variants_filtered.vcf contains the variants for each mutant after comparing to the wild-type. SAMPLE_variants_filtered_and_scored.vcf contains variants from SAMPLE_variants_filtered.vcf that passed the user assigned quality score.
 
-### SNPeff_Output
+### SnpEff_Output
 
-Contains a folder for each mutant within which you will find VCF, TXT and HTML files with the output of the SNPeff program. This program will map variants to protein coding genes and regions upstream and downstream of those genes. The HTML is a high level summary of the data. The TXT file is a table of genes with counts of the number of variants within each gene that fall into a number of catagories (given in the column names). The VCF file contains all the variants input into SNPeff but now includes additional information following `ANN=` in the info field. The Events.log contains inforamation on the the run such as errors etc. 
+Contains a folder for each mutant within which you will find VCF, TXT and HTML files with the output of the SnpEff program. This program will map variants to protein coding genes and regions upstream and downstream of those genes. The HTML is a high level summary of the data. The TXT file is a table of genes with counts of the number of variants within each gene that fall into a number of catagories (given in the column names). The VCF file contains all the variants input into SnpEff but now includes additional information following `ANN=` in the info field. The Events.log contains inforamation on the the run such as errors etc. 
 
 ### SIFT_Output
 
