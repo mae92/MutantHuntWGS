@@ -9,7 +9,7 @@
 
 # Setup and Run
 
-**1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer. Our container contains Ubuntu linux and has been tested on multiple Macbook Pro computers, but it may require additional work to properly install Docker on a Windows computer in a way that allows it to run this type of container, Windows users please review the information on these webpages: https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/linux-containers and https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux.**
+**1. Follow the instructions at https://docs.docker.com/get-docker/ to download and install Docker on your computer.**
 
 
 **2. Create a directory (a folder) in a directory of your choice (on your Desktop is fine) named `./Analysis_Directory`. Within `./Analysis_Directory` create a file directory named `./FASTQ` inside of `./Analysis_Directory` and place all FASTQ files into it (full path: `./PATH_TO_DESKTOP/Analysis_Directory/FASTQ`).**
