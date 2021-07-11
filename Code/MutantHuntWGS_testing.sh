@@ -221,7 +221,7 @@ then
 		#The first step is to use the SAMtools mpileup command to calculate the genotype likelihoods supported by the aligned reads in our sample
 	
 
-		samtools mpileup -Ov --gvcf 0 -f "$GENOME_FASTA" "$BAM_FILE" -o "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf &> /dev/null
+		samtools mpileup -g -f "$GENOME_FASTA" "$BAM_FILE" -o "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf &> /dev/null
 		
 		#-g: directs SAMtools to output genotype likelihoods in the binary call format (BCF). This is a compressed binary format.
 		#-f: directs SAMtools to use the specified reference genome. A reference genome must be specified.
@@ -231,8 +231,12 @@ then
 
 		echo "$BAM_FILE" | awk '{print $1 "\t" "M"}' > "$OUTPUT_FILE"/BCF/sample_file.txt
 
-		bcftools call -c -v --gvcf 0 --samples-file "$OUTPUT_FILE"/BCF/sample_file.txt --ploidy-file "$PLOIDY_FILE" "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf > "$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf
+		bcftools call -c -v --samples-file "$OUTPUT_FILE"/BCF/sample_file.txt --ploidy-file "$PLOIDY_FILE" "$OUTPUT_FILE"/BCF/"$NAME_PREFIX"_variants.bcf > "$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf
 
+		#-c, --consensus-caller	
+		#-v, --variants-only
+
+		
 		echo -e Variants have been called and stored in "\n""$OUTPUT_FILE"/VCF/"$NAME_PREFIX"_variants.vcf"\n"
 
 	done
@@ -257,6 +261,20 @@ then
 	#############################################
 
 	echo -e "\n\n\n\n\n\n"Comparing all strains to the "$WILD_TYPE" wild-type strain "\n"
+	
+	
+	##############################
+	#Implementing Payals Fix Here
+	
+	#Merge all vcf files with the mock_variant.tmp file
+	cat "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants.vcf /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/mock_variant.tsv > "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants_merged.vcf
+		
+	#Create sorted vcf by catenating header in file and sort the non-header and append to the existing file
+	for d in "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants_merged.vcf; do grep "^#" $d > $d.sorted; grep -v "^#" $d | sort -k1,1V -k2,2g >> $d.sorted; done
+		
+	#END Payals fix code
+	##############################
+		
 
 	#WILD_TYPE = the wild type file to compare all other files too
 
@@ -265,11 +283,26 @@ then
 
 		#Using this command to get only the file name and lose the path
 		MUTANT=`echo "$MUTANT_VCF" | awk -F "/" '{print $(NF)}' | awk -F "." '{print  $1}'`
+		
+		
+		
+		##############################
+		#Implementing Payals Fix Here
+		
+		#Merge all vcf files with the mock_variant.tmp file
+		cat "$OUTPUT_FILE"/VCF/"$MUTANT".vcf /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/mock_variant.tsv > "$OUTPUT_FILE"/VCF/"$MUTANT"_merged.vcf
+		
+		#Create sorted vcf by catenating header in file and sort the non-header and append to the existing file
+		for d in "$OUTPUT_FILE"/VCF/"$MUTANT"_merged.vcf; do grep "^#" $d > $d.sorted; grep -v "^#" $d | sort -k1,1V -k2,2g >> $d.sorted; done
+		
+		#END Payals fix code
+		##############################
+
 
 
 		#Compare variations in the two files
 
-		vcftools --vcf "$OUTPUT_FILE"/VCF/"$MUTANT".vcf --diff "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants.vcf --diff-site --out "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_VCFtools_output.txt
+		vcftools --vcf "$OUTPUT_FILE"/VCF/"$MUTANT"_merged.vcf.sorted --diff "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants_merged.vcf.sorted --diff-site --out "$OUTPUT_FILE"/VCFtools_Output/"$MUTANT"_vs_"$WILD_TYPE"_VCFtools_output.txt
 
 		##These next two steps are to produce VCF files from the output for downstream applications
 
@@ -311,10 +344,10 @@ then
 	rm "$OUTPUT_FILE"/BAM/*_unsorted.bam
 	rm "$OUTPUT_FILE"/VCF/*.tmp
 	rm `ls "$OUTPUT_FILE"/VCF/"$WILD_TYPE"_variants_filtered*.vcf`
-
-
-
-
+	rm "$OUTPUT_FILE"/VCF/*_merged.vcf
+	rm "$OUTPUT_FILE"/VCF/*_merged.vcf.sorted
+	
+	
 
 	###########################################################
 	###   MODULE 4: Determine Variant Effects with SNPeff   ###
