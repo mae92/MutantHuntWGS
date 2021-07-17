@@ -46,6 +46,38 @@ MutantHuntWGS.sh \
     -a YES
 ```
 
+# MutantHuntWGS_v1.1 now available (MutantHuntWGS_v1.1.sh)
+## The original is still available (MutantHuntWGS.sh)
+## Why v1.1?
+**1. One of our users identified an error coming from VCFtools that (simply put) was causing the pipeline to fail if there were not variants on all chromosomes in the wild type. This has now been corrected. We would like to thank Payal Arora, a graduate student in the Kaplan lab here at UPitt, for here help identifying this issue and for graciously offering us her solution to the problem so that we could update MutantHuntWGS to ensure others did not experience this same issue.
+**2 The aligner has the capability to use multiple processors and was set to the maximum number under the assumption that it would default to the max that was available, but we believe that under these conditions it is actually defaulting to the mininmum. Therefore, we created an option for number of processors/threads -t that can be set to an integer value to specify how many processors to use. This should speed up the analysis. On your average laptop you will only be able to set it to 4 at max and we reccomend only setting it to 3.
+
+## How do I get the docker container for v1.1?
+### Like this?
+
+
+## How do I run v1.1?
+### Like this:
+```
+./MutantHuntWGS_v1.1.sh \
+    -n wttoy \
+    -g /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
+    -f /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
+    -r single \
+    -s 0 \
+    -p /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/ploidy_n1.txt \
+    -d /Main/MutantHuntWGS/FASTQ_test \
+    -o /Main/Analysis_Directory/test_output \
+    -a YES \
+    -t 3
+```
+
+
+## All other use instructions are the same as the original
+
+
+
+
 ### Because the files and directory structure were set up ahead of time (on the Desktop and during the docker build), and this all runs out of the Docker container, *the file paths in the above commands will all stay the same*, but some of the options may change depending upon your needs. 
 
 
