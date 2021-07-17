@@ -160,7 +160,7 @@ This allows you to specify a folder for your data to output to. This should be s
 This allows you to turn on and off the alignment and calling step. So if you have already aligned reads and called variants and all that you want to do is reanalyze with a different score cuttoff then you can set this to "NO", but if you are starting from FASTQ files that have not gone throught this process yet you set this to "YES"
 
 ### -t (version 1.1 only)
-This allows you to set a number of concurrent threads that will be used when running bowtie2. Bowtie2 accepts va
+This allows you to set a number of concurrent threads that will be used when running bowtie2. This is equivolent to setting ```-p/--threads``` in bowtie2.
 
 
 
