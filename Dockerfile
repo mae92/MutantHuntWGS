@@ -29,6 +29,7 @@ RUN echo 'export PATH="/Main/MutantHuntWGS/Code:$PATH"' >> ~/.bashrc
 
 RUN chmod 777 /Main/MutantHuntWGS/Code/MutantHuntWGS.sh
 
+RUN chmod 777 /Main/MutantHuntWGS/Code/MutantHuntWGS_v1.1.sh
 
 
 
