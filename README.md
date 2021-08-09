@@ -25,7 +25,7 @@ docker run -it -v /PATH_TO_DESKTOP/Analysis_Directory:/Main/Analysis_Directory m
 ## How do I run v1.1?
 ### Like this:
 ```
-./MutantHuntWGS_v1.1.sh \
+MutantHuntWGS_v1.1.sh \
     -n wttoy \
     -g /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome \
     -f /Main/MutantHuntWGS/S_cerevisiae_Bowtie2_Index_and_FASTA/genome.fa \
